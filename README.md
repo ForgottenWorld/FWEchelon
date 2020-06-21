@@ -1,2 +1,2 @@
 # FWEchelon
-SpigotMC various back-end purposes including displaying terms of service and Discourse integration
+SpigotMC plugin for misc purposes like displaying terms of service and Discourse integration 
