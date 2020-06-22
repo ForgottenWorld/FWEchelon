@@ -3,3 +3,6 @@
 #dbDatabase: "fwechelon"
 #dbUsername: "fweUser"
 #dbPassword: "forgottenworld"
+
+discourseApiKey: :^)
+forumActivationTimeout: 600
