@@ -9,5 +9,8 @@
         <module name="FWEchelon" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="FWEchelon" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>

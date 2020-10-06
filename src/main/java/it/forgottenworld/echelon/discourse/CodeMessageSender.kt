@@ -41,11 +41,11 @@ object CodeMessageSender {
                         raw = "CODICE DI VERIFICA: $key",
                         target_recipients = discourseUsername
                 ))
-
         try {
-            val outputStream = DataOutputStream(connection.outputStream)
-            outputStream.write(postData.toByteArray(Charsets.UTF_8))
-            outputStream.flush()
+            with (DataOutputStream(connection.outputStream)) {
+                write(postData.toByteArray(Charsets.UTF_8))
+                flush()
+            }
         } catch (e: Exception) {
             getLogger().info(e.message)
             e.printStackTrace()
@@ -53,7 +53,6 @@ object CodeMessageSender {
 
         if (connection.responseCode != HttpURLConnection.HTTP_OK && connection.responseCode != HttpURLConnection.HTTP_CREATED) {
             try {
-
                 val inputStream = DataInputStream(connection.inputStream)
                 val reader = BufferedReader(InputStreamReader(inputStream))
                 val output = reader.readLine()

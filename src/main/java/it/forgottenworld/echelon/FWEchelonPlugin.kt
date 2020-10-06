@@ -12,10 +12,9 @@ import java.io.File
 import java.util.*
 
 class FWEchelonPlugin : JavaPlugin() {
+
     companion object {
         lateinit var instance: FWEchelonPlugin
-        //lateinit var storage: FileConfiguration
-        //lateinit var pluginDataFolder: File
     }
 
     override fun onEnable() {
@@ -24,14 +23,6 @@ class FWEchelonPlugin : JavaPlugin() {
         saveDefaultConfig()
 
         instance = this
-        //pluginDataFolder = dataFolder
-        //val confirmedFile = File(dataFolder, "confirmed.yml")
-        //if (!confirmedFile.exists()) confirmedFile.createNewFile()
-        //storage = YamlConfiguration().apply { load(confirmedFile) }
-
-        /*storage.getKeys(false).forEach{
-            ForumActivationState.addActivatedPlayer(UUID.fromString(it))
-        }*/
 
         server.pluginManager.registerEvents(PlayerJoinListener(), this)
     }
@@ -39,5 +30,4 @@ class FWEchelonPlugin : JavaPlugin() {
     override fun onDisable() {
         logger.info("Disabling FWEchelon...")
     }
-
 }

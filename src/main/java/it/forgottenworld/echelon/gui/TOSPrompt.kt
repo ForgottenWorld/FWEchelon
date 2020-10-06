@@ -17,22 +17,21 @@ import java.io.File
 
 class TOSPrompt : ConversationAbandonedListener {
 
-    private val conversationFactory: ConversationFactory = ConversationFactory(FWEchelonPlugin.instance)
+    private val conversationFactory = ConversationFactory(FWEchelonPlugin.instance)
             .withFirstPrompt(TOSConfirmationPrompt())
             .thatExcludesNonPlayersWithMessage("Only players can run this conversation")
             .addConversationAbandonedListener(this)
 
-    override fun conversationAbandoned(p0: ConversationAbandonedEvent) {
-        if (p0.gracefulExit()) {
-            (p0.context.forWhom.sendRawMessage("${ChatColor.GREEN}Grazie, buon divertimento!"))
-        } else {
-            (p0.context.forWhom.sendRawMessage("${ChatColor.RED}Devi accettare i termini di servizio per poter accedere al server."))
-        }
-    }
+    override fun conversationAbandoned(p0: ConversationAbandonedEvent) =
+            if (p0.gracefulExit())
+                (p0.context.forWhom
+                        .sendRawMessage("${ChatColor.GREEN}Grazie, buon divertimento!"))
+            else
+                (p0.context.forWhom
+                        .sendRawMessage("${ChatColor.RED}Devi accettare i termini di servizio per poter accedere al server."))
 
-    fun startConversationForPlayer(player: Player) {
-        conversationFactory.buildConversation(player).begin()
-    }
+    fun startConversationForPlayer(player: Player) =
+            conversationFactory.buildConversation(player).begin()
 
     private class TOSConfirmationPrompt : FixedSetPrompt() {
 
@@ -56,24 +55,19 @@ class TOSPrompt : ConversationAbandonedListener {
             return ""
         }
 
-        override fun isInputValid(context: ConversationContext, input: String): Boolean {
-            return setOf("yes", "no").contains(input)
-        }
+        override fun isInputValid(context: ConversationContext, input: String) =
+                setOf("yes", "no").contains(input)
 
-        override fun acceptValidatedInput(context: ConversationContext, input: String): Prompt? {
-            val player = (context.forWhom as Player)
+        override fun acceptValidatedInput(context: ConversationContext, input: String): Prompt? =
+                if (input != "yes") {
+                    (context.forWhom as Player)
+                            .kickPlayer("Devi accettare i termini di servizio per poter accedere al server.")
+                    Prompt.END_OF_CONVERSATION
+                } else
+                    ForumUsernamePrompt()
 
-            return if (input != "yes") {
-                player.kickPlayer("Devi accettare i termini di servizio per poter accedere al server.")
-                Prompt.END_OF_CONVERSATION
-            } else {
-                ForumUsernamePrompt()
-            }
-        }
-
-        override fun getFailedValidationText(context: ConversationContext, invalidInput: String): String? {
-            return "Le risposte possibili sono yes o no."
-        }
+        override fun getFailedValidationText(context: ConversationContext, invalidInput: String) =
+                "Le risposte possibili sono yes o no."
     }
 
     private class ForumUsernamePrompt : StringPrompt() {
@@ -82,11 +76,10 @@ class TOSPrompt : ConversationAbandonedListener {
             (context.forWhom as Player).spigot().sendMessage(
                     TextComponent("\n\nSe non lo hai già fatto, crea un account sul ")
                             .apply {
-                                addExtra(
-                                        TextComponent("${ChatColor.GOLD}forum")
-                                                .apply {
-                                                    clickEvent = ClickEvent(ClickEvent.Action.OPEN_URL, "https://forum.forgottenworld.it")
-                                                })
+                                addExtra(TextComponent("${ChatColor.GOLD}forum")
+                                        .apply {
+                                            clickEvent = ClickEvent(ClickEvent.Action.OPEN_URL, "https://forum.forgottenworld.it")
+                                        })
                                 addExtra(TextComponent("${ChatColor.WHITE}, poi inserisci il tuo username."))
                             }
             )
@@ -99,13 +92,13 @@ class TOSPrompt : ConversationAbandonedListener {
             CodeMessageSender.sendMessage((context.forWhom as Player).uniqueId, input.trim())
             return ForumCodePrompt()
         }
+
     }
 
     private class ForumCodePrompt : StringPrompt() {
 
-        override fun getPromptText(context: ConversationContext): String {
-            return "\n\nControlla le tue notifiche sul forum, dovresti aver ricevuto un codice di verifica. Inseriscilo sotto."
-        }
+        override fun getPromptText(context: ConversationContext) =
+                "\n\nControlla le tue notifiche sul forum, dovresti aver ricevuto un codice di verifica. Inseriscilo sotto."
 
         override fun acceptInput(context: ConversationContext, input: String?): Prompt? {
             input ?: return this
@@ -117,9 +110,9 @@ class TOSPrompt : ConversationAbandonedListener {
                             )) {
                 player.walkSpeed = 0.2f
                 player.removePotionEffect(PotionEffectType.JUMP)
-                player.persistentDataContainer.set(NamespacedKey(FWEchelonPlugin.instance, "echHasAcceptedTOS"), PersistentDataType.SHORT, 1)
-                //FWEchelonPlugin.storage.set(player.uniqueId.toString(), true)
-                //FWEchelonPlugin.storage.save(File(FWEchelonPlugin.pluginDataFolder, "confirmed.yml"))
+                player.persistentDataContainer.set(
+                        NamespacedKey(FWEchelonPlugin.instance, "echHasAcceptedTOS"),
+                        PersistentDataType.SHORT, 1)
                 return Prompt.END_OF_CONVERSATION
             }
             player.sendMessage("${ChatColor.RED}CODICE ERRATO")

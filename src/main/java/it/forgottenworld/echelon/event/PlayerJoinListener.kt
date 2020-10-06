@@ -17,23 +17,15 @@ class PlayerJoinListener: Listener {
 
     @EventHandler
     fun onPlayerJoin(event: PlayerJoinEvent?) {
-        event ?: return
 
-        //event.player.setMetadata("echHasAcceptedTOS", FixedMetadataValue(FWEchelonPlugin.instance, false))
-
-        if (event.player.
-                persistentDataContainer
-                        .getOrDefault(
-                                NamespacedKey(FWEchelonPlugin.instance, "echHasAcceptedTOS"),
-                                PersistentDataType.SHORT,0) != 1.toShort()) {
-            /*if (ForumActivationState.isPlayerActivated(event.player.uniqueId)) {
-                event.player.setMetadata("echHasAcceptedTOS", FixedMetadataValue(FWEchelonPlugin.instance, true))
-                return
-            }*/
-            //event.player.setMetadata("echHasAcceptedTOS", FixedMetadataValue(FWEchelonPlugin.instance, false))
-            event.player.walkSpeed = 0f
-            event.player.addPotionEffect(PotionEffect(PotionEffectType.JUMP, 2000000, 100000))
-            TOSPrompt().startConversationForPlayer(event.player)
+        event?.run {
+            if (player.persistentDataContainer.getOrDefault(
+                            NamespacedKey(FWEchelonPlugin.instance, "echHasAcceptedTOS"),
+                            PersistentDataType.SHORT,0) != 1.toShort()) {
+                player.walkSpeed = 0f
+                player.addPotionEffect(PotionEffect(PotionEffectType.JUMP, 2000000, 100000))
+                TOSPrompt().startConversationForPlayer(player)
+            }
         }
     }
 }
