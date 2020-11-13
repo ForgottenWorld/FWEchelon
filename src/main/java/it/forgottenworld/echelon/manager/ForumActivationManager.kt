@@ -1,4 +1,4 @@
-package it.forgottenworld.echelon.state
+package it.forgottenworld.echelon.manager
 
 import it.forgottenworld.echelon.FWEchelonPlugin
 import it.forgottenworld.echelon.utils.getRandomString
@@ -6,12 +6,9 @@ import java.time.Duration
 import java.time.LocalDateTime
 import java.util.*
 
-object ForumActivationState {
+object ForumActivationManager {
 
-    data class ActivationData(
-            val key: String,
-            val timestamp: LocalDateTime
-        )
+    data class ActivationData(val key: String, val timestamp: LocalDateTime)
 
     private val playerActivationData = mutableMapOf<UUID, ActivationData>()
 

@@ -1,17 +1,12 @@
 package it.forgottenworld.echelon
 
+import it.forgottenworld.echelon.config.Config
 import it.forgottenworld.echelon.event.PlayerJoinListener
-import it.forgottenworld.echelon.state.ForumActivationState
-import org.bukkit.Bukkit.getOfflinePlayer
-import org.bukkit.Bukkit.getPlayer
-import org.bukkit.configuration.file.FileConfiguration
-import org.bukkit.configuration.file.YamlConfiguration
-import org.bukkit.metadata.FixedMetadataValue
+import it.forgottenworld.echelon.services.DiscourseService
+import it.forgottenworld.fwechelonapi.FWEchelonApi
 import org.bukkit.plugin.java.JavaPlugin
-import java.io.File
-import java.util.*
 
-class FWEchelonPlugin : JavaPlugin() {
+class FWEchelonPlugin : JavaPlugin(), FWEchelonApi {
 
     companion object {
         lateinit var instance: FWEchelonPlugin
@@ -22,6 +17,8 @@ class FWEchelonPlugin : JavaPlugin() {
 
         saveDefaultConfig()
 
+        Config.config = config
+
         instance = this
 
         server.pluginManager.registerEvents(PlayerJoinListener(), this)
@@ -30,4 +27,6 @@ class FWEchelonPlugin : JavaPlugin() {
     override fun onDisable() {
         logger.info("Disabling FWEchelon...")
     }
+
+    override fun getDiscourseService() = DiscourseService
 }

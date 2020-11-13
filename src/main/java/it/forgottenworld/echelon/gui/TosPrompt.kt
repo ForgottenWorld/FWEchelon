@@ -2,20 +2,18 @@ package it.forgottenworld.echelon.gui
 
 import it.forgottenworld.echelon.FWEchelonPlugin
 import it.forgottenworld.echelon.discourse.CodeMessageSender
-import it.forgottenworld.echelon.state.ForumActivationState
+import it.forgottenworld.echelon.manager.ForumActivationManager
 import net.md_5.bungee.api.ChatColor
 import net.md_5.bungee.api.chat.ClickEvent
 import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.NamespacedKey
 import org.bukkit.conversations.*
 import org.bukkit.entity.Player
-import org.bukkit.metadata.FixedMetadataValue
 import org.bukkit.persistence.PersistentDataType
 import org.bukkit.potion.PotionEffectType
-import java.io.File
 
 
-class TOSPrompt : ConversationAbandonedListener {
+class TosPrompt : ConversationAbandonedListener {
 
     private val conversationFactory = ConversationFactory(FWEchelonPlugin.instance)
             .withFirstPrompt(TOSConfirmationPrompt())
@@ -103,7 +101,7 @@ class TOSPrompt : ConversationAbandonedListener {
         override fun acceptInput(context: ConversationContext, input: String?): Prompt? {
             input ?: return this
             val player = context.forWhom as Player
-            if (ForumActivationState
+            if (ForumActivationManager
                             .matchActivationDataAndRemoveIfTrue(
                                     player.uniqueId,
                                     input
