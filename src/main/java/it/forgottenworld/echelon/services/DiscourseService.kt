@@ -13,7 +13,6 @@ import it.forgottenworld.fwechelonapi.discourse.DiscoursePost
 import it.forgottenworld.fwechelonapi.services.DiscourseService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.bukkit.Bukkit
 import java.util.function.Consumer
 
 object DiscourseService : DiscourseService {
@@ -46,8 +45,6 @@ object DiscourseService : DiscourseService {
                     onFailure?.accept("Invalid response")
                     return@use
                 }
-
-                Bukkit.getLogger().info(json)
 
                 val parser = Parser.default()
                 val posts = (parser.parse(StringBuilder(json)) as? JsonObject)

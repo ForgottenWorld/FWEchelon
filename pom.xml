@@ -6,7 +6,7 @@
 
     <groupId>it.forgottenworld</groupId>
     <artifactId>FWEchelon</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.0.4</version>
 
     <properties>
         <kotlin.version>1.4.10</kotlin.version>
