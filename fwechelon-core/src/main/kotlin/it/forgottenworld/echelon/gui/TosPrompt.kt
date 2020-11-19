@@ -1,6 +1,7 @@
 package it.forgottenworld.echelon.gui
 
 import it.forgottenworld.echelon.FWEchelonPlugin
+import it.forgottenworld.echelon.config.Config
 import it.forgottenworld.echelon.discourse.CodeMessageSender
 import it.forgottenworld.echelon.manager.ForumActivationManager
 import it.forgottenworld.echelon.utils.*
@@ -34,7 +35,7 @@ class TosPrompt : ConversationAbandonedListener {
                 append("§aBenvenuto/a!\n\n§fPer accedere al server devi accettare i ")
 
                 append("termini di servizio", ChatColor.AQUA)
-                clickEvent(ClickEvent.Action.OPEN_URL, "https://wiki.forgottenworld.it/main/Termini")
+                clickEvent(ClickEvent.Action.OPEN_URL, Config.tosUrl)
 
                 append("\n\n\n")
 
@@ -68,7 +69,7 @@ class TosPrompt : ConversationAbandonedListener {
             (context.forWhom as? Player)?.spigot()?.sendMessage(*component {
                 append("\n\nSe non lo hai già fatto, crea un account sul ")
                 append("forum", ChatColor.GOLD)
-                clickEvent(ClickEvent.Action.OPEN_URL, "https://forum.forgottenworld.it")
+                clickEvent(ClickEvent.Action.OPEN_URL, Config.discourseUrl)
                 append(", poi inserisci il tuo username in chat qui sotto.", ChatColor.WHITE)
             })
 

@@ -4,5 +4,9 @@
 #dbUsername: "fweUser"
 #dbPassword: "forgottenworld"
 
+discourseUrl: "https://forum.forgottenworld.it"
 discourseApiKey: :^)
+
+tosUrl: "https://wikinew.forgottenworld.it/main/Termini"
+
 forumActivationTimeout: 600

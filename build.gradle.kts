@@ -6,8 +6,7 @@ repositories {
 }
 
 plugins {
-    // java
-    // `maven-publish`
+    maven
     kotlin("jvm") version Versions.kotlin
 
     id(Libs.Plugins.shadow) version Versions.shadow
@@ -38,9 +37,3 @@ subprojects {
         }
     }
 }
-
-/*publishing {
-    publications.create<MavenPublication>("maven") {
-        from(components["java"])
-    }
-}*/

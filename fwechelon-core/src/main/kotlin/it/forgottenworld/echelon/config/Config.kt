@@ -8,4 +8,6 @@ object Config {
 
     val apiKey by lazy { config!!.getString("discourseApiKey")!! }
     val forumActivationTimeout by lazy { config!!.getInt("forumActivationTimeout") }
+    val discourseUrl by lazy { config!!.getString("discourseUrl")!! }
+    val tosUrl by lazy { config!!.getString("tosUrl")!! }
 }

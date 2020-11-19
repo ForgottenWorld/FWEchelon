@@ -34,7 +34,7 @@ object DiscourseServiceImpl : DiscourseService {
             withContext(Dispatchers.async) {
 
                 httpGet {
-                    url("https://forum.forgottenworld.it/t/$id.json")
+                    url("${Config.discourseUrl}/t/$id.json")
 
                     header {
                         "api-key" to apiKey

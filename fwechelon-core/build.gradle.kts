@@ -1,14 +1,13 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
-    // java
+    maven
     kotlin("jvm")
     kotlin("plugin.serialization") version Versions.kotlin
     id("com.github.johnrengelman.shadow")
 }
 
 description = "FWEchelon"
-java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 dependencies {
     compileOnly(Libs.paper)

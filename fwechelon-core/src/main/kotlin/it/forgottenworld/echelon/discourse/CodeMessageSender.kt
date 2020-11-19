@@ -25,7 +25,7 @@ object CodeMessageSender {
 
         launchAsync {
             httpPost {
-                url("https://forum.forgottenworld.it/posts")
+                url("${Config.discourseUrl}/posts")
                 charset("utf-8")
                 header {
                     "api-key" to apiKey

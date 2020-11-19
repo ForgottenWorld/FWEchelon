@@ -7,7 +7,7 @@ import net.md_5.bungee.api.chat.ComponentBuilder
 import net.md_5.bungee.api.chat.HoverEvent
 import net.md_5.bungee.api.chat.hover.content.Content
 
-private val STRING_CHARACTERS = ('0'..'z')
+private val STRING_CHARACTERS = ('0'..'9') + ('a'..'z') + ('A'..'Z')
 
 fun getRandomString(length: Int) =
         (1..length).map { STRING_CHARACTERS.random() }.joinToString("")
