@@ -22,3 +22,5 @@ dependencies {
 tasks.withType<ShadowJar> {
     exclude { it.path.startsWith("kotlin") || it.path.startsWith("org") }
 }
+
+defaultTasks("build", "shadowJar")
