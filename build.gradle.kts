@@ -1,3 +1,4 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 repositories {
@@ -5,10 +6,14 @@ repositories {
     mavenCentral()
 }
 
+dependencies {
+    implementation(project(":fwechelon-core"))
+    implementation(project(":fwechelon-api"))
+}
+
 plugins {
     maven
     kotlin("jvm") version Versions.kotlin
-
     id(Libs.Plugins.shadow) version Versions.shadow
 }
 
@@ -37,4 +42,8 @@ subprojects {
         }
     }
 
+}
+
+tasks.withType<ShadowJar> {
+    exclude { it.path.startsWith("kotlin") || it.path.startsWith("org") }
 }

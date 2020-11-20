@@ -6,8 +6,8 @@ object Config {
 
     var config: FileConfiguration? = null
 
-    val apiKey by lazy { config!!.getString("discourseApiKey")!! }
-    val forumActivationTimeout by lazy { config!!.getInt("forumActivationTimeout") }
-    val discourseUrl by lazy { config!!.getString("discourseUrl")!! }
-    val tosUrl by lazy { config!!.getString("tosUrl")!! }
+    val apiKey get() = config!!.getString("discourseApiKey")!!
+    val forumActivationTimeout get() = config!!.getInt("forumActivationTimeout")
+    val discourseUrl get() = config!!.getString("discourseUrl")!!
+    val tosUrl get() = config!!.getString("tosUrl")!!
 }

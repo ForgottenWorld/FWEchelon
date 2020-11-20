@@ -1,5 +1,5 @@
 name: FWEchelon
-version: 0.0.5
+version: 0.0.6
 api-version: "1.16"
 description: The ForgottenWorld bureaucracy plugin
 author: Shivs (OhMeMuffin)
@@ -15,6 +15,6 @@ permissions:
   fwechelon:
     description: Allows the player to use /fwechelon
     default: op
-  fwechelon.discourse.noticetype:
-    description: Allows the player to use /fwechelon discourse noticetype
+  fwechelon.reload:
+    description: Allows the player to use /fwechelon reload
     default: op

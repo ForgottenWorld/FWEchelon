@@ -1,5 +1,3 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-
 plugins {
     maven
     kotlin("jvm")
@@ -18,9 +16,3 @@ dependencies {
     compileOnly(Libs.koHttp)
     implementation(project(":fwechelon-api"))
 }
-
-tasks.withType<ShadowJar> {
-    exclude { it.path.startsWith("kotlin") || it.path.startsWith("org") }
-}
-
-defaultTasks("build", "shadowJar")

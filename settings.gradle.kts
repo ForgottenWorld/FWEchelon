@@ -1,2 +1,2 @@
-rootProject.name = "FWEchelon"
+rootProject.name = "fwechelon"
 include("fwechelon-core", "fwechelon-api")

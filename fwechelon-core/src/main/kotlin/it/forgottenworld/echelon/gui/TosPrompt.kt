@@ -2,6 +2,7 @@ package it.forgottenworld.echelon.gui
 
 import it.forgottenworld.echelon.FWEchelonPlugin
 import it.forgottenworld.echelon.config.Config
+import it.forgottenworld.echelon.config.Strings
 import it.forgottenworld.echelon.discourse.CodeMessageSender
 import it.forgottenworld.echelon.manager.ForumActivationManager
 import it.forgottenworld.echelon.utils.*
@@ -16,11 +17,11 @@ class TosPrompt : ConversationAbandonedListener {
 
     override fun conversationAbandoned(p0: ConversationAbandonedEvent) =
             if (p0.gracefulExit())
-                (p0.context.forWhom
-                        .sendRawMessage("${ChatColor.GREEN}Grazie, buon divertimento!"))
+                p0.context.forWhom
+                        .sendRawMessage("${ChatColor.GREEN}${Strings.THANKS_HAVE_FUN}")
             else
-                (p0.context.forWhom
-                        .sendRawMessage("${ChatColor.RED}Devi accettare i termini di servizio per poter accedere al server."))
+                p0.context.forWhom
+                        .sendRawMessage("${ChatColor.RED}${Strings.YOU_MUST_ACCEPT_TOS_IOT_ACCESS}")
 
     fun startConversationForPlayer(player: Player) = ConversationFactory(getPlugin<FWEchelonPlugin>())
             .withFirstPrompt(TOSConfirmationPrompt())
@@ -32,19 +33,19 @@ class TosPrompt : ConversationAbandonedListener {
 
         override fun getPromptText(context: ConversationContext): String {
             (context.forWhom as Player).spigot().sendMessage(*component {
-                append("§aBenvenuto/a!\n\n§fPer accedere al server devi accettare i ")
+                append("§a${Strings.WELCOME}/a!\n\n§f${Strings.TO_ACCESS_YOU_MUST} ")
 
-                append("termini di servizio", ChatColor.AQUA)
+                append(Strings.TOS, ChatColor.AQUA)
                 clickEvent(ClickEvent.Action.OPEN_URL, Config.tosUrl)
 
                 append("\n\n\n")
 
-                append ("§f[ §aACCETTO §f]")
+                append ("§f[ §a${Strings.ACCEPT} §f]")
                 clickEvent(ClickEvent.Action.RUN_COMMAND, "yes")
 
                 append("    ")
 
-                append ("§f[ §cRIFIUTO §f]")
+                append ("§f[ §c${Strings.DECLINE} §f]")
                 clickEvent(ClickEvent.Action.RUN_COMMAND, "no")
             })
             return ""
@@ -55,22 +56,22 @@ class TosPrompt : ConversationAbandonedListener {
         override fun acceptValidatedInput(context: ConversationContext, input: String): Prompt? =
                 if (input != "yes") {
                     (context.forWhom as Player)
-                            .kickPlayer("Devi accettare i termini di servizio per poter accedere al server.")
+                            .kickPlayer(Strings.YOU_MUST_ACCEPT_TOS_IOT_ACCESS)
                     Prompt.END_OF_CONVERSATION
                 } else ForumUsernamePrompt()
 
         override fun getFailedValidationText(context: ConversationContext, invalidInput: String) =
-                "Le risposte possibili sono yes o no."
+                Strings.POSSIBLE_ANSWERS_ARE_YES_OR_NO
     }
 
     private class ForumUsernamePrompt : StringPrompt() {
 
         override fun getPromptText(context: ConversationContext): String {
             (context.forWhom as? Player)?.spigot()?.sendMessage(*component {
-                append("\n\nSe non lo hai già fatto, crea un account sul ")
-                append("forum", ChatColor.GOLD)
+                append("\n\n${Strings.FORUM_USERNAME_REQUEST_1}")
+                append(Strings.FORUM_USERNAME_REQUEST_2, ChatColor.GOLD)
                 clickEvent(ClickEvent.Action.OPEN_URL, Config.discourseUrl)
-                append(", poi inserisci il tuo username in chat qui sotto.", ChatColor.WHITE)
+                append(Strings.FORUM_USERNAME_REQUEST_3, ChatColor.WHITE)
             })
 
             return ""
@@ -87,7 +88,7 @@ class TosPrompt : ConversationAbandonedListener {
     private class ForumCodePrompt : StringPrompt() {
 
         override fun getPromptText(context: ConversationContext) =
-                "\n\nControlla le tue notifiche sul forum, dovresti aver ricevuto un codice di verifica. Inseriscilo in chat qui sotto."
+                "\n\n${Strings.CHECK_FORUM_NOTIFICATIONS}"
 
         override fun acceptInput(context: ConversationContext, input: String?): Prompt? {
             input ?: return this
@@ -98,7 +99,7 @@ class TosPrompt : ConversationAbandonedListener {
                 player.hasAcceptedTos = true
                 return Prompt.END_OF_CONVERSATION
             }
-            player.sendMessage("${ChatColor.RED}CODICE ERRATO")
+            player.sendMessage("${ChatColor.RED}${Strings.WRONG_CODE}")
             return ForumUsernamePrompt()
         }
     }
