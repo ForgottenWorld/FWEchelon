@@ -47,3 +47,5 @@ subprojects {
 tasks.withType<ShadowJar> {
     exclude { it.path.startsWith("kotlin") || it.path.startsWith("org") }
 }
+
+tasks["build"].dependsOn("shadowJar")
