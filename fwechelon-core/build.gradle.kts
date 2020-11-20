@@ -2,7 +2,6 @@ plugins {
     maven
     kotlin("jvm")
     kotlin("plugin.serialization") version Versions.kotlin
-    id("com.github.johnrengelman.shadow")
 }
 
 description = "FWEchelon"
@@ -15,4 +14,8 @@ dependencies {
     compileOnly(Libs.serialization)
     compileOnly(Libs.koHttp)
     implementation(project(":fwechelon-api"))
+}
+
+tasks.withType<Jar> {
+    from(project(":fwechelon-api").sourceSets["main"].output)
 }

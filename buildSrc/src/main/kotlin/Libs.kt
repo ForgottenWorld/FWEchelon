@@ -13,8 +13,4 @@ object Libs {
         const val api = "com.github.ForgottenWorld.MCCoroutine:mccoroutine-bukkit-api:$version"
     }
 
-    object Plugins {
-
-        const val shadow = "com.github.johnrengelman.shadow"
-    }
 }

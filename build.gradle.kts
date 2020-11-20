@@ -1,4 +1,3 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 repositories {
@@ -14,7 +13,6 @@ dependencies {
 plugins {
     maven
     kotlin("jvm") version Versions.kotlin
-    id(Libs.Plugins.shadow) version Versions.shadow
 }
 
 subprojects {
@@ -43,9 +41,3 @@ subprojects {
     }
 
 }
-
-tasks.withType<ShadowJar> {
-    exclude { it.path.startsWith("kotlin") || it.path.startsWith("org") }
-}
-
-tasks["build"].dependsOn("shadowJar")
