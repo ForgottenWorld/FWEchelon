@@ -16,4 +16,6 @@ object Strings {
     const val CHECK_FORUM_NOTIFICATIONS = "Controlla le tue notifiche sul forum, dovresti aver ricevuto un codice di verifica. Inseriscilo in chat qui sotto."
     const val WRONG_CODE = "CODICE ERRATO"
     const val CONFIG_RELOADED = "Configurazione ricaricata"
+    const val ITEM_UNLOCKED = "Hai sbloccato %s"
+    const val YOU_CANT_UNLOCK_THIS_YET = "Non puoi ancora sbloccare %s"
 }

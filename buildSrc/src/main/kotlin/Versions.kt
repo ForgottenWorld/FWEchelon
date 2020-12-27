@@ -1,6 +1,6 @@
 object Versions {
 
-    const val echelon = "0.0.6"
+    const val echelon = "0.0.7"
 
-    const val kotlin = "1.4.10"
+    const val kotlin = "1.4.21"
 }

@@ -1,5 +1,6 @@
 package it.forgottenworld.echelon.event
 
+import it.forgottenworld.echelon.config.Config
 import it.forgottenworld.echelon.gui.TosPrompt
 import it.forgottenworld.echelon.utils.hasAcceptedTos
 import org.bukkit.event.EventHandler
@@ -14,7 +15,7 @@ class PlayerJoinListener: Listener {
     @EventHandler
     fun onPlayerJoin(event: PlayerJoinEvent) {
         val player = event.player
-        if (player.hasAcceptedTos) return
+        if (!Config.enableTos || player.hasAcceptedTos) return
 
         player.addPotionEffect(PotionEffect(
                 PotionEffectType.SLOW,

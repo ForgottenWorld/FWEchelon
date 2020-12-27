@@ -10,3 +10,5 @@ discourseApiKey: :^)
 tosUrl: "https://wikinew.forgottenworld.it/main/Termini"
 
 forumActivationTimeout: 600
+
+enableTos: false

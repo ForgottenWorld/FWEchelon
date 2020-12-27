@@ -1,13 +1,12 @@
 package it.forgottenworld.echelon.config
 
-import org.bukkit.configuration.file.FileConfiguration
+import it.forgottenworld.echelon.utils.echelon
 
 object Config {
 
-    var config: FileConfiguration? = null
-
-    val apiKey get() = config!!.getString("discourseApiKey")!!
-    val forumActivationTimeout get() = config!!.getInt("forumActivationTimeout")
-    val discourseUrl get() = config!!.getString("discourseUrl")!!
-    val tosUrl get() = config!!.getString("tosUrl")!!
+    val apiKey get() = echelon.config.getString("discourseApiKey") ?: "null"
+    val forumActivationTimeout get() = echelon.config.getInt("forumActivationTimeout", 600)
+    val discourseUrl get() = echelon.config.getString("discourseUrl", "https://forum.forgottenworld.it")!!
+    val tosUrl get() = echelon.config.getString("tosUrl", "https://wikinew.forgottenworld.it/main/Termini")!!
+    val enableTos get() = echelon.config.getBoolean("enableTos", false)
 }
