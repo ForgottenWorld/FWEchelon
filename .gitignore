@@ -12,3 +12,5 @@ buildNumber.properties
 *.iml
 .gradle/
 .idea/
+**/build/
+!src/**/build/
