@@ -9,7 +9,7 @@ class MutexActivityServiceImpl : MutexActivityService {
 
     private val mutexActivities = mutableMapOf<String, MutexActivityListener>()
     private val playerMutexActivities = mutableMapOf<UUID, String>()
-    private val playersToRemoveFromMutexActivityOnDisconnect = mutableSetOf<UUID>()
+    val playersToRemoveFromMutexActivityOnDisconnect = mutableSetOf<UUID>()
 
     override fun isPlayerInMutexActivity(player: Player) = playerMutexActivities.containsKey(player.uniqueId)
 
