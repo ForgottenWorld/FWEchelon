@@ -5,11 +5,11 @@ import it.forgottenworld.echelonapi.services.MutexActivityService
 import org.bukkit.entity.Player
 import java.util.*
 
-object MutexActivityServiceImpl : MutexActivityService {
+class MutexActivityServiceImpl : MutexActivityService {
 
     private val mutexActivities = mutableMapOf<String, MutexActivityListener>()
     private val playerMutexActivities = mutableMapOf<UUID, String>()
-    val playersToRemoveFromMutexActivityOnDisconnect = mutableSetOf<UUID>()
+    private val playersToRemoveFromMutexActivityOnDisconnect = mutableSetOf<UUID>()
 
     override fun isPlayerInMutexActivity(player: Player) = playerMutexActivities.containsKey(player.uniqueId)
 

@@ -19,7 +19,7 @@ import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import java.util.function.Consumer
 
-object DiscourseServiceImpl : DiscourseService {
+class DiscourseServiceImpl : DiscourseService {
 
     override fun getPostsWithCustomNoticeTypeInTopic(
             id: Int,
