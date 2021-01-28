@@ -19,7 +19,13 @@ import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import java.util.function.Consumer
 
-class DiscourseServiceImpl(private val config: Config) : DiscourseService {
+internal class DiscourseServiceImpl(private var config: Config) : DiscourseService {
+
+    init {
+        config.addOnConfigChangedListener {
+            config = it
+        }
+    }
 
     override fun getPostsWithCustomNoticeTypeInTopic(
             id: Int,

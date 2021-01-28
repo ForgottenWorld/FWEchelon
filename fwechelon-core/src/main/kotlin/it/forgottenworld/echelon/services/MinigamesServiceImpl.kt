@@ -4,7 +4,7 @@ import it.forgottenworld.echelon.minigames.MinigameScheduler
 import it.forgottenworld.echelonapi.minigames.Minigame
 import it.forgottenworld.echelonapi.services.MinigamesService
 
-class MinigamesServiceImpl(
+internal class MinigamesServiceImpl(
     private val minigameScheduler: MinigameScheduler
 ) : MinigamesService {
 

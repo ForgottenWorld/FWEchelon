@@ -12,7 +12,7 @@ import org.bukkit.entity.Player
 import org.bukkit.potion.PotionEffectType
 
 
-class TosPrompt(
+internal class TosPrompt(
     private val config: Config,
     private val codeMessageSender: CodeMessageSender,
     private val forumActivationManager: ForumActivationManager
@@ -90,7 +90,8 @@ class TosPrompt(
 
         override fun acceptInput(context: ConversationContext, input: String?): Prompt {
             input ?: return this
-            codeMessageSender.sendMessage((context.forWhom as Player).uniqueId, input.trim())
+            val key = forumActivationManager.addActivationDataForPlayer((context.forWhom as Player).uniqueId)
+            codeMessageSender.sendMessage(key, input.trim())
             return ForumCodePrompt(config, codeMessageSender, forumActivationManager)
         }
 

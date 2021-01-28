@@ -8,7 +8,7 @@ import org.bukkit.NamespacedKey
 import org.bukkit.command.BlockCommandSender
 import org.bukkit.persistence.PersistentDataType
 
-fun cmdUnlockCollectible(sender: BlockCommandSender, args: Array<out String>): Boolean {
+internal fun cmdUnlockCollectible(sender: BlockCommandSender, args: Array<out String>): Boolean {
 
     val playerName = args.getOrNull(0) ?: return true
     val player = Bukkit.getPlayer(playerName) ?: return true

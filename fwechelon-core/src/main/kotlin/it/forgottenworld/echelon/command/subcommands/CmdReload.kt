@@ -1,12 +1,12 @@
 package it.forgottenworld.echelon.command.subcommands
 
-import it.forgottenworld.echelon.FWEchelonPlugin
 import it.forgottenworld.echelon.config.Strings
+import it.forgottenworld.echelon.utils.echelon
 import org.bukkit.command.CommandSender
 
-fun cmdReload(sender: CommandSender, args: Array<out String>): Boolean {
+internal fun cmdReload(sender: CommandSender, args: Array<out String>): Boolean {
 
-    FWEchelonPlugin.reloadConfig()
+    echelon.reloadConfig()
     sender.sendMessage(Strings.CONFIG_RELOADED)
 
     return true

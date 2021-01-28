@@ -7,7 +7,7 @@ import org.bukkit.persistence.PersistentDataType
 
 private val tosNamespacedKey get() = NamespacedKey(getPlugin<FWEchelonPlugin>(), "echHasAcceptedTOS")
 
-var Player.hasAcceptedTos
+internal var Player.hasAcceptedTos
     get() = persistentDataContainer.getOrDefault(tosNamespacedKey, PersistentDataType.INTEGER, 0) == 1
     set(value) {
         if (value) persistentDataContainer.set(tosNamespacedKey, PersistentDataType.INTEGER, 1)

@@ -3,20 +3,19 @@ package it.forgottenworld.echelon.discourse
 import io.github.rybalkinsd.kohttp.dsl.httpPost
 import io.github.rybalkinsd.kohttp.ext.url
 import it.forgottenworld.echelon.config.Config
-import it.forgottenworld.echelon.manager.ForumActivationManager
 import it.forgottenworld.echelon.utils.launchAsync
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
-import java.util.*
 
-class CodeMessageSender(
-    private val config: Config,
-    private val forumActivationManager: ForumActivationManager
-) {
+internal class CodeMessageSender(private var config: Config) {
 
-    fun sendMessage(uuid: UUID, discourseUsername: String) {
-        val key = forumActivationManager.addActivationDataForPlayer(uuid)
+    init {
+        config.addOnConfigChangedListener {
+            config = it
+        }
+    }
 
+    fun sendMessage(discourseUsername: String, key: String) {
         val data = buildJsonObject {
             put("title", "Codice di verifica")
             put("raw", "CODICE DI VERIFICA: $key")

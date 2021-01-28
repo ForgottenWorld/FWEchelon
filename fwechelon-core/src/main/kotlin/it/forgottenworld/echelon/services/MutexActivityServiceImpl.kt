@@ -8,7 +8,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerQuitEvent
 import java.util.*
 
-class MutexActivityServiceImpl : MutexActivityService {
+internal class MutexActivityServiceImpl : MutexActivityService {
 
     private val mutexActivities = mutableMapOf<String, MutexActivityListener>()
     private val playerMutexActivities = mutableMapOf<UUID, String>()

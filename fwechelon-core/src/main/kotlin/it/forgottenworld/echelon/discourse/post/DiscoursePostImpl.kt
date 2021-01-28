@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 
 
-data class DiscoursePostImpl(val map: JsonObject): DiscoursePost {
+internal data class DiscoursePostImpl(val map: JsonObject): DiscoursePost {
 
     override val id = map["id"]?.jsonPrimitive?.int ?: -1
 

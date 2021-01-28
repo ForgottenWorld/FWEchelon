@@ -2,7 +2,7 @@ package it.forgottenworld.echelon.command.api
 
 import org.bukkit.command.CommandSender
 
-class BranchingCommand(vararg bindings: Pair<String, CommandNode>) : CommandNode {
+internal class BranchingCommand(vararg bindings: Pair<String, CommandNode>) : CommandNode {
 
     val bindings = bindings.toMap()
 

@@ -15,11 +15,18 @@ import java.time.temporal.ChronoUnit
 import java.util.*
 import kotlin.random.Random
 
-class MinigameScheduler(config: Config) {
+internal class MinigameScheduler(config: Config) {
+
+    init {
+        config.addOnConfigChangedListener {
+            scheduledTimes = it.minigameScheduledAt
+            scheduleNext()
+        }
+    }
 
     private var schedulingJob: Job? = null
 
-    private val scheduledTimes = config.minigameScheduledAt
+    private var scheduledTimes = config.minigameScheduledAt
     private val selectionWeights = mutableMapOf<String, Int>()
     private val minigamesInRotation = mutableMapOf<String, Minigame>()
     private var pendingLobbyMinigame: Minigame? = null

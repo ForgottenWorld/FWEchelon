@@ -7,7 +7,7 @@ import it.forgottenworld.echelon.command.api.TreeCommand
 import it.forgottenworld.echelon.command.subcommands.cmdReload
 import it.forgottenworld.echelon.command.subcommands.cmdUnlockCollectible
 
-class FWEchelonCommand : TreeCommand(
+internal class FWEchelonCommand : TreeCommand(
         "fwechelon",
         BranchingCommand(
                 "reload" to SenderCommand(::cmdReload),

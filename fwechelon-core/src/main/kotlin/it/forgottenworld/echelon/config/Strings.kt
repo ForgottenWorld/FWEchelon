@@ -1,6 +1,6 @@
 package it.forgottenworld.echelon.config
 
-object Strings {
+internal object Strings {
 
     const val POSSIBLE_ANSWERS_ARE_YES_OR_NO = "Le risposte possibili sono yes o no."
     const val YOU_MUST_ACCEPT_TOS_IOT_ACCESS = "Devi accettare i termini di servizio per poter accedere al server."
