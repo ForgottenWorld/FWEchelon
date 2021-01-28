@@ -6,14 +6,14 @@ import java.time.Duration
 import java.time.LocalDateTime
 import java.util.*
 
-object ForumActivationManager {
+class ForumActivationManager(private val config: Config) {
 
     data class ActivationData(val key: String, val timestamp: LocalDateTime)
 
     private val playerActivationData = mutableMapOf<UUID, ActivationData>()
 
     private fun removeExpiredActivationData() {
-        val timeout = Config.forumActivationTimeout
+        val timeout = config.forumActivationTimeout
         playerActivationData
                 .values
                 .removeIf { (Duration.between(LocalDateTime.now(), it.timestamp).seconds >= timeout) }

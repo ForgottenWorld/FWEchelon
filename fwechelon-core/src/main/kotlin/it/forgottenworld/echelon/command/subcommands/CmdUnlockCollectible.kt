@@ -1,8 +1,7 @@
 package it.forgottenworld.echelon.command.subcommands
 
-import it.forgottenworld.echelon.FWEchelonPlugin
 import it.forgottenworld.echelon.config.Strings
-import it.forgottenworld.echelon.utils.getPlugin
+import it.forgottenworld.echelon.utils.echelon
 import net.md_5.bungee.api.ChatColor
 import org.bukkit.Bukkit
 import org.bukkit.NamespacedKey
@@ -18,7 +17,7 @@ fun cmdUnlockCollectible(sender: BlockCommandSender, args: Array<out String>): B
     val series = args.getOrNull(3) ?: return true
     val itemNo = args.getOrNull(4)?.toIntOrNull() ?: return true
 
-    val nsk = NamespacedKey(getPlugin<FWEchelonPlugin>(), "ECH_UNLOCKABLE_${series}")
+    val nsk = NamespacedKey(echelon, "ECH_UNLOCKABLE_${series}")
     val pdc = player.persistentDataContainer
     val collectiblesUnlocked = pdc.getOrDefault(nsk, PersistentDataType.INTEGER, -1)
     if (collectiblesUnlocked == itemNo - 1) {

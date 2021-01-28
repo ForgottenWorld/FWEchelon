@@ -19,7 +19,7 @@ import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import java.util.function.Consumer
 
-class DiscourseServiceImpl : DiscourseService {
+class DiscourseServiceImpl(private val config: Config) : DiscourseService {
 
     override fun getPostsWithCustomNoticeTypeInTopic(
             id: Int,
@@ -27,14 +27,14 @@ class DiscourseServiceImpl : DiscourseService {
             onFailure: Consumer<String>
     ) {
 
-        val apiKey = Config.apiKey
+        val apiKey = config.apiKey
 
         launch {
 
             withContext(Dispatchers.async) {
 
                 httpGet {
-                    url("${Config.discourseUrl}/t/$id.json")
+                    url("${config.discourseUrl}/t/$id.json")
 
                     header {
                         "api-key" to apiKey

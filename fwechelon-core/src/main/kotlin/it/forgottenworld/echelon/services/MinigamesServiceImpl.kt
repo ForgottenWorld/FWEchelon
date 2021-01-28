@@ -1,24 +1,17 @@
 package it.forgottenworld.echelon.services
 
+import it.forgottenworld.echelon.minigames.MinigameScheduler
 import it.forgottenworld.echelonapi.minigames.Minigame
 import it.forgottenworld.echelonapi.services.MinigamesService
 
-class MinigamesServiceImpl : MinigamesService {
+class MinigamesServiceImpl(
+    private val minigameScheduler: MinigameScheduler
+) : MinigamesService {
 
-    private val minigames = mutableMapOf<String, Minigame>()
+    override fun registerMinigameForRotation(minigame: Minigame) = minigameScheduler.addMinigameToRotation(minigame)
 
-    override fun registerMinigameForRotation(minigame: Minigame): Boolean {
-        if (minigames.contains(minigame.id)) return false
-        minigames[minigame.id] = minigame
-        return true
-    }
+    override fun notifyReadyForAnnouncement(minigame: Minigame) = minigameScheduler.onMinigameReadyForAnnouncement(minigame)
 
-    override fun notifyReadyForAnnouncement(minigame: Minigame) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onFinish(minigame: Minigame) {
-        TODO("Not yet implemented")
-    }
+    override fun onFinish(minigame: Minigame) = minigameScheduler.onMinigameFinished(minigame)
 
 }

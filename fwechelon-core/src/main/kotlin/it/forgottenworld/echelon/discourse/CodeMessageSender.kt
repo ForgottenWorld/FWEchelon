@@ -9,10 +9,13 @@ import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 import java.util.*
 
-object CodeMessageSender {
+class CodeMessageSender(
+    private val config: Config,
+    private val forumActivationManager: ForumActivationManager
+) {
 
     fun sendMessage(uuid: UUID, discourseUsername: String) {
-        val key = ForumActivationManager.addActivationDataForPlayer(uuid)
+        val key = forumActivationManager.addActivationDataForPlayer(uuid)
 
         val data = buildJsonObject {
             put("title", "Codice di verifica")
@@ -21,11 +24,11 @@ object CodeMessageSender {
             put("archetype", "private_message")
         }.toString()
 
-        val apiKey = Config.apiKey
+        val apiKey = config.apiKey
 
         launchAsync {
             httpPost {
-                url("${Config.discourseUrl}/posts")
+                url("${config.discourseUrl}/posts")
                 charset("utf-8")
                 header {
                     "api-key" to apiKey

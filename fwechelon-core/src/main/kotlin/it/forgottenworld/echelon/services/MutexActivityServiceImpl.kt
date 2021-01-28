@@ -3,6 +3,9 @@ package it.forgottenworld.echelon.services
 import it.forgottenworld.echelonapi.mutexactivity.MutexActivityListener
 import it.forgottenworld.echelonapi.services.MutexActivityService
 import org.bukkit.entity.Player
+import org.bukkit.event.EventHandler
+import org.bukkit.event.Listener
+import org.bukkit.event.player.PlayerQuitEvent
 import java.util.*
 
 class MutexActivityServiceImpl : MutexActivityService {
@@ -53,5 +56,17 @@ class MutexActivityServiceImpl : MutexActivityService {
         if (mutexActivities.containsKey(name)) return false
         mutexActivities[name] = listener
         return true
+    }
+
+    inner class PlayerQuitListener: Listener {
+
+        @EventHandler
+        fun onPlayerQuit(event: PlayerQuitEvent) {
+            val uuid = event.player.uniqueId
+            if (playersToRemoveFromMutexActivityOnDisconnect.remove(uuid)) {
+                val name = getPlayerMutexActivityName(event.player) ?: return
+                removePlayerFromMutexActivity(event.player, name)
+            }
+        }
     }
 }

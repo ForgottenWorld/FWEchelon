@@ -6,7 +6,7 @@ interface MinigamesService {
 
     fun registerMinigameForRotation(minigame: Minigame): Boolean
 
-    fun notifyReadyForAnnouncement(minigame: Minigame)
+    fun notifyReadyForAnnouncement(minigame: Minigame): Boolean
 
-    fun onFinish(minigame: Minigame)
+    fun onFinish(minigame: Minigame): Boolean
 }
