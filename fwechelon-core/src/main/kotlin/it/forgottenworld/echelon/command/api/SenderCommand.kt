@@ -2,10 +2,10 @@ package it.forgottenworld.echelon.command.api
 
 import org.bukkit.command.CommandSender
 
-internal class SenderCommand(private val handler: (CommandSender, Array<out String>) -> Unit): CommandNode {
+internal class SenderCommand(private val handler: CommandFunction<CommandSender>) : Command {
 
     override fun walkExecute(sender: CommandSender, args: Array<out String>): Boolean {
-        handler(sender, args)
+        handler.command(sender, args)
         return true
     }
 }

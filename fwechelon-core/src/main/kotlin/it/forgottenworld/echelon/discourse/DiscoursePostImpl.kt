@@ -1,4 +1,4 @@
-package it.forgottenworld.echelon.discourse.post
+package it.forgottenworld.echelon.discourse
 
 import it.forgottenworld.echelonapi.discourse.DiscoursePost
 import kotlinx.serialization.json.JsonObject
@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 
 
-internal data class DiscoursePostImpl(val map: JsonObject): DiscoursePost {
+internal data class DiscoursePostImpl(val map: JsonObject) : DiscoursePost {
 
     override val id = map["id"]?.jsonPrimitive?.int ?: -1
 
@@ -20,7 +20,7 @@ internal data class DiscoursePostImpl(val map: JsonObject): DiscoursePost {
     override val createdAt = map["created_at"]?.jsonPrimitive?.content?.let {
         try {
             LocalDateTime.parse(it, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"))
-        } catch(_: DateTimeParseException) {
+        } catch (_: DateTimeParseException) {
             null
         }
     }

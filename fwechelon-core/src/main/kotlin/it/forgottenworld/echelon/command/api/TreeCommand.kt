@@ -6,13 +6,16 @@ import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
 import org.bukkit.entity.Player
 
-internal abstract class TreeCommand(private val name: String, private val cmdTree: BranchingCommand) : CommandExecutor, TabCompleter {
+internal abstract class TreeCommand : CommandExecutor, TabCompleter {
+
+    abstract val name: String
+    abstract val cmdTree: BranchingCommand
 
     override fun onCommand(
-            sender: CommandSender,
-            command: Command,
-            label: String,
-            args: Array<out String>
+        sender: CommandSender,
+        command: Command,
+        label: String,
+        args: Array<out String>
     ) = when {
         args.isEmpty() -> false
         !sender.hasPermission("$name.${args[0]}") -> {
@@ -23,8 +26,8 @@ internal abstract class TreeCommand(private val name: String, private val cmdTre
     }
 
     private tailrec fun walkArgs(
-            branch: BranchingCommand,
-            subcommands: List<String>
+        branch: BranchingCommand,
+        subcommands: List<String>
     ): List<String>? {
         val key = subcommands.firstOrNull() ?: return null
         val cmd = branch.bindings[key] ?: return branch.bindings.keys.filter { it.startsWith(key) }
@@ -32,11 +35,11 @@ internal abstract class TreeCommand(private val name: String, private val cmdTre
     }
 
     override fun onTabComplete(
-            sender: CommandSender,
-            cmd: Command,
-            label: String,
-            args: Array<out String>) =
-            if (sender is Player && cmd.name.equals(name, true))
-                walkArgs(cmdTree, args.toList())
-            else null
+        sender: CommandSender,
+        cmd: Command,
+        label: String,
+        args: Array<out String>) =
+        if (sender is Player && cmd.name.equals(name, true))
+            walkArgs(cmdTree, args.toList())
+        else null
 }

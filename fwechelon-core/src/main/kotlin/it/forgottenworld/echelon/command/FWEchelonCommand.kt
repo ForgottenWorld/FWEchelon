@@ -4,13 +4,15 @@ import it.forgottenworld.echelon.command.api.BlockCommand
 import it.forgottenworld.echelon.command.api.BranchingCommand
 import it.forgottenworld.echelon.command.api.SenderCommand
 import it.forgottenworld.echelon.command.api.TreeCommand
-import it.forgottenworld.echelon.command.subcommands.cmdReload
-import it.forgottenworld.echelon.command.subcommands.cmdUnlockCollectible
+import org.koin.core.component.KoinApiExtension
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
 
-internal class FWEchelonCommand : TreeCommand(
-        "fwechelon",
-        BranchingCommand(
-                "reload" to SenderCommand(::cmdReload),
-                "unlockcollectible" to BlockCommand(::cmdUnlockCollectible)
-        )
-)
+@KoinApiExtension
+internal class FWEchelonCommand : TreeCommand(), KoinComponent {
+    override val name = "fwechelon"
+    override val cmdTree = BranchingCommand(
+        "reload" to SenderCommand(get<CmdReload>()),
+        "unlockcollectible" to BlockCommand(get<CmdUnlockCollectible>())
+    )
+}

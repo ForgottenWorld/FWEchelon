@@ -13,8 +13,8 @@ interface DiscourseService {
      * @onError accepts a string describing the error
      * */
     fun getPostsWithCustomNoticeTypeInTopic(
-            id: Int,
-            onResponse: Consumer<List<DiscoursePost>>,
-            onFailure: Consumer<String>
+        id: Int,
+        onResponse: Consumer<List<DiscoursePost>>,
+        onFailure: Consumer<String>
     )
 }

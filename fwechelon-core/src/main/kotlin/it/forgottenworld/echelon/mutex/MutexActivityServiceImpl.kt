@@ -1,18 +1,30 @@
-package it.forgottenworld.echelon.services
+package it.forgottenworld.echelon.mutex
 
+import it.forgottenworld.echelon.FWEchelonPlugin
+import it.forgottenworld.echelon.utils.register
 import it.forgottenworld.echelonapi.mutexactivity.MutexActivityListener
 import it.forgottenworld.echelonapi.services.MutexActivityService
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerQuitEvent
+import org.koin.core.component.KoinApiExtension
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import java.util.*
 
-internal class MutexActivityServiceImpl : MutexActivityService {
+@KoinApiExtension
+internal class MutexActivityServiceImpl : MutexActivityService, KoinComponent {
+
+    private val plugin by inject<FWEchelonPlugin>()
 
     private val mutexActivities = mutableMapOf<String, MutexActivityListener>()
     private val playerMutexActivities = mutableMapOf<UUID, String>()
     val playersToRemoveFromMutexActivityOnDisconnect = mutableSetOf<UUID>()
+
+    fun registerListeners() {
+        PlayerQuitListener().register(plugin)
+    }
 
     override fun isPlayerInMutexActivity(player: Player) = playerMutexActivities.containsKey(player.uniqueId)
 
@@ -30,10 +42,10 @@ internal class MutexActivityServiceImpl : MutexActivityService {
     }
 
     override fun removePlayerFromMutexActivity(player: Player, name: String) =
-            if (playerMutexActivities[player.uniqueId] == name) {
-                playerMutexActivities.remove(player.uniqueId)
-                true
-            } else false
+        if (playerMutexActivities[player.uniqueId] == name) {
+            playerMutexActivities.remove(player.uniqueId)
+            true
+        } else false
 
     override fun forceRemovePlayerFromMutexActivity(player: Player, reason: String?): Boolean {
         val mutexActivityName = playerMutexActivities[player.uniqueId] ?: return false
@@ -58,7 +70,7 @@ internal class MutexActivityServiceImpl : MutexActivityService {
         return true
     }
 
-    inner class PlayerQuitListener: Listener {
+    inner class PlayerQuitListener : Listener {
 
         @EventHandler
         fun onPlayerQuit(event: PlayerQuitEvent) {

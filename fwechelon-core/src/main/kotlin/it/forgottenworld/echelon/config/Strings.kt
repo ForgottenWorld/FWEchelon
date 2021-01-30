@@ -18,4 +18,5 @@ internal object Strings {
     const val CONFIG_RELOADED = "Configurazione ricaricata"
     const val ITEM_UNLOCKED = "Hai sbloccato %s"
     const val YOU_CANT_UNLOCK_THIS_YET = "Non puoi ancora sbloccare %s"
+    const val NEW_EVENT_ABOUT_TO_START = "Sta per iniziare un nuovo evento: %s"
 }

@@ -1,8 +1,8 @@
 package it.forgottenworld.echelon.minigames
 
 import it.forgottenworld.echelon.config.Config
-import it.forgottenworld.echelon.utils.MCCoroutineKtx.launch
 import it.forgottenworld.echelon.utils.getPlayer
+import it.forgottenworld.echelon.utils.launch
 import it.forgottenworld.echelonapi.minigames.Minigame
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -19,9 +19,10 @@ import java.util.*
 import kotlin.random.Random
 
 @KoinApiExtension
-internal class MinigameScheduler: KoinComponent {
+internal class MinigameScheduler : KoinComponent {
 
     private val config by inject<Config>()
+    private val minigameAnnouncer by inject<MinigameAnnouncer>()
 
     init {
         config.addOnConfigChangedListener {
@@ -63,9 +64,7 @@ internal class MinigameScheduler: KoinComponent {
 
     fun onMinigameReadyForAnnouncement(minigame: Minigame): Boolean {
         if (pendingLobbyMinigame?.id != minigame.id) return false
-        Bukkit.getServer().onlinePlayers.forEach {
-            it.sendMessage("Sta per iniziare un evento ${minigame.name}")
-        }
+        minigameAnnouncer.announceMinigame(minigame, Bukkit.getServer().onlinePlayers)
         minigame.onAnnounced()
         pendingLobbyMinigame = null
         pendingStartMinigame = minigame

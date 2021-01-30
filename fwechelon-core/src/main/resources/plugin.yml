@@ -10,7 +10,11 @@ commands:
   fwechelon:
     description: Access FWEchelon functions.
     usage: /fwechelon
-    aliases: [fwechelon,ech]
+    aliases: [ fwechelon,ech ]
+  minigame:
+    description: Access minigame services.
+    usage: /minigame
+    aliases: [ join,leave ]
 permissions:
   fwechelon:
     description: Allows the player to use /fwechelon
@@ -18,3 +22,12 @@ permissions:
   fwechelon.reload:
     description: Allows the player to use /fwechelon reload
     default: op
+  minigame:
+    description: Allows the player to use /minigame
+    default: true
+  minigame.join:
+    description: Allows the player to use /minigame join
+    default: true
+  minigame.leave:
+    description: Allows the player to use /minigame leave
+    default: true

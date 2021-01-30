@@ -1,10 +1,11 @@
-package it.forgottenworld.echelon.gui
+package it.forgottenworld.echelon.discourse
 
+import it.forgottenworld.echelon.FWEchelonPlugin
 import it.forgottenworld.echelon.config.Config
 import it.forgottenworld.echelon.config.Strings
-import it.forgottenworld.echelon.discourse.CodeMessageSender
-import it.forgottenworld.echelon.manager.ForumActivationManager
-import it.forgottenworld.echelon.utils.*
+import it.forgottenworld.echelon.utils.append
+import it.forgottenworld.echelon.utils.clickEvent
+import it.forgottenworld.echelon.utils.component
 import net.md_5.bungee.api.ChatColor
 import net.md_5.bungee.api.chat.ClickEvent
 import org.bukkit.conversations.*
@@ -15,8 +16,9 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 @KoinApiExtension
-internal class TosPrompt: ConversationAbandonedListener, KoinComponent {
+internal class TosPrompt : ConversationAbandonedListener, KoinComponent {
 
+    private val plugin by inject<FWEchelonPlugin>()
     private val config by inject<Config>()
     private val codeMessageSender by inject<CodeMessageSender>()
     private val forumActivationManager by inject<ForumActivationManager>()
@@ -29,7 +31,7 @@ internal class TosPrompt: ConversationAbandonedListener, KoinComponent {
             p0.context.forWhom
                 .sendRawMessage("${ChatColor.RED}${Strings.YOU_MUST_ACCEPT_TOS_IOT_ACCESS}")
 
-    fun startConversationForPlayer(player: Player) = ConversationFactory(echelon)
+    fun startConversationForPlayer(player: Player) = ConversationFactory(plugin)
         .withFirstPrompt(TOSConfirmationPrompt())
         .withModality(true)
         .thatExcludesNonPlayersWithMessage("Only players can run this conversation")
@@ -86,7 +88,7 @@ internal class TosPrompt: ConversationAbandonedListener, KoinComponent {
         override fun acceptInput(context: ConversationContext, input: String?): Prompt {
             input ?: return this
             val key = forumActivationManager.addActivationDataForPlayer((context.forWhom as Player).uniqueId)
-            codeMessageSender.sendMessage(key, input.trim())
+            codeMessageSender.sendMessage(input.trim(), key)
             return ForumCodePrompt()
         }
 
@@ -100,11 +102,13 @@ internal class TosPrompt: ConversationAbandonedListener, KoinComponent {
         override fun acceptInput(context: ConversationContext, input: String?): Prompt? {
             input ?: return this
             val player = context.forWhom as Player
-            if (forumActivationManager.matchActivationDataAndRemoveIfTrue(player.uniqueId, input)) {
-                player.removePotionEffect(PotionEffectType.JUMP)
-                player.removePotionEffect(PotionEffectType.SLOW)
-                player.hasAcceptedTos = true
-                return Prompt.END_OF_CONVERSATION
+            with (forumActivationManager) {
+                if (matchActivationDataAndRemoveIfTrue(player.uniqueId, input)) {
+                    player.removePotionEffect(PotionEffectType.JUMP)
+                    player.removePotionEffect(PotionEffectType.SLOW)
+                    player.hasAcceptedTos = true
+                    return Prompt.END_OF_CONVERSATION
+                }
             }
             player.sendMessage("${ChatColor.RED}${Strings.WRONG_CODE}")
             return ForumUsernamePrompt()

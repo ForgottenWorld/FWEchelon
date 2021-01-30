@@ -1,16 +1,14 @@
-package it.forgottenworld.echelon.services
+package it.forgottenworld.echelon.discourse
 
 
 import io.github.rybalkinsd.kohttp.dsl.httpGet
 import io.github.rybalkinsd.kohttp.ext.asString
 import io.github.rybalkinsd.kohttp.ext.url
 import it.forgottenworld.echelon.config.Config
-import it.forgottenworld.echelon.discourse.post.DiscoursePostImpl
-import it.forgottenworld.echelon.utils.MCCoroutineKtx.async
-import it.forgottenworld.echelon.utils.MCCoroutineKtx.launch
+import it.forgottenworld.echelon.utils.asyncDispatcher
+import it.forgottenworld.echelon.utils.launch
 import it.forgottenworld.echelonapi.discourse.DiscoursePost
 import it.forgottenworld.echelonapi.services.DiscourseService
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
@@ -28,16 +26,16 @@ internal class DiscourseServiceImpl : DiscourseService, KoinComponent {
     private val config by inject<Config>()
 
     override fun getPostsWithCustomNoticeTypeInTopic(
-            id: Int,
-            onResponse: Consumer<List<DiscoursePost>>,
-            onFailure: Consumer<String>
+        id: Int,
+        onResponse: Consumer<List<DiscoursePost>>,
+        onFailure: Consumer<String>
     ) {
 
         val apiKey = config.apiKey
 
         launch {
 
-            withContext(Dispatchers.async) {
+            withContext(asyncDispatcher) {
 
                 httpGet {
                     url("${config.discourseUrl}/t/$id.json")
@@ -62,21 +60,21 @@ internal class DiscourseServiceImpl : DiscourseService, KoinComponent {
                 try {
 
                     val posts = Json.parseToJsonElement(json)
-                             .jsonObject["post_stream"]
-                             ?.jsonObject?.get("posts")
-                             ?.jsonArray ?: run {
+                        .jsonObject["post_stream"]
+                        ?.jsonObject?.get("posts")
+                        ?.jsonArray ?: run {
                         onFailure.accept("Parsing failed")
                         return@use
                     }
 
                     val filteredPosts = posts
-                            .filter {
-                                it.jsonObject["notice"]
-                                        ?.jsonObject
-                                        ?.get("type")
-                                        ?.jsonPrimitive
-                                        ?.content == "custom"
-                            }.map { it.jsonObject }
+                        .filter {
+                            it.jsonObject["notice"]
+                                ?.jsonObject
+                                ?.get("type")
+                                ?.jsonPrimitive
+                                ?.content == "custom"
+                        }.map { it.jsonObject }
 
                     onResponse.accept(filteredPosts.map(::DiscoursePostImpl))
 

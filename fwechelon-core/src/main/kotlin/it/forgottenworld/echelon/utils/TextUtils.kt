@@ -10,7 +10,7 @@ import net.md_5.bungee.api.chat.hover.content.Content
 private val STRING_CHARACTERS = ('0'..'9') + ('a'..'z') + ('A'..'Z')
 
 internal fun getRandomString(length: Int) =
-        (1..length).map { STRING_CHARACTERS.random() }.joinToString("")
+    (1..length).map { STRING_CHARACTERS.random() }.joinToString("")
 
 internal inline fun component(build: ComponentBuilder.() -> Unit): Array<BaseComponent> = ComponentBuilder().apply { build() }.create()
 

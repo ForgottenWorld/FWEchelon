@@ -1,14 +1,13 @@
-package it.forgottenworld.echelon.services
+package it.forgottenworld.echelon.minigames
 
-import it.forgottenworld.echelon.minigames.MinigameScheduler
 import it.forgottenworld.echelonapi.minigames.Minigame
-import it.forgottenworld.echelonapi.services.MinigamesService
+import it.forgottenworld.echelonapi.services.MinigameService
 import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 @KoinApiExtension
-internal class MinigamesServiceImpl : MinigamesService, KoinComponent {
+internal class MinigameServiceImpl : MinigameService, KoinComponent {
 
     private val minigameScheduler by inject<MinigameScheduler>()
 

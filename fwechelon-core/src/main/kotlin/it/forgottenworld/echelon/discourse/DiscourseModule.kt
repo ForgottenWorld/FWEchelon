@@ -1,0 +1,13 @@
+package it.forgottenworld.echelon.discourse
+
+import it.forgottenworld.echelonapi.services.DiscourseService
+import org.koin.core.component.KoinApiExtension
+import org.koin.dsl.module
+
+@OptIn(KoinApiExtension::class)
+val discourseModule = module {
+    single { ForumActivationManager() }
+    factory { TosPrompt() }
+    single { CodeMessageSender() }
+    single<DiscourseService> { DiscourseServiceImpl() }
+}

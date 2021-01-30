@@ -20,10 +20,11 @@ internal class Config : KoinComponent {
     val discourseUrl get() = config.getString("discourseUrl", DefaultValues.DISCOURSE_URL)!!
     val tosUrl get() = config.getString("tosUrl", DefaultValues.WIKI_URL)!!
     val enableTos get() = config.getBoolean("enableTos", false)
-    val minigameScheduledAt get() = config.getStringList("minigameScheduledAt").map {
-        val split = it.split(":")
-        LocalTime.of(split[0].toInt(), split[1].toInt())
-    }.sorted()
+    val minigameScheduledAt
+        get() = config.getStringList("minigameScheduledAt").map {
+            val split = it.split(":")
+            LocalTime.of(split[0].toInt(), split[1].toInt())
+        }.sorted()
 
     fun updateConfig(config: FileConfiguration) {
         this.config = config
