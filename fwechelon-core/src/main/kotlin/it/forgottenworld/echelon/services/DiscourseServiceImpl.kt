@@ -6,8 +6,8 @@ import io.github.rybalkinsd.kohttp.ext.asString
 import io.github.rybalkinsd.kohttp.ext.url
 import it.forgottenworld.echelon.config.Config
 import it.forgottenworld.echelon.discourse.post.DiscoursePostImpl
-import it.forgottenworld.echelon.utils.async
-import it.forgottenworld.echelon.utils.launch
+import it.forgottenworld.echelon.utils.MCCoroutineKtx.async
+import it.forgottenworld.echelon.utils.MCCoroutineKtx.launch
 import it.forgottenworld.echelonapi.discourse.DiscoursePost
 import it.forgottenworld.echelonapi.services.DiscourseService
 import kotlinx.coroutines.Dispatchers
@@ -17,15 +17,15 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
+import org.koin.core.component.KoinApiExtension
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import java.util.function.Consumer
 
-internal class DiscourseServiceImpl(private var config: Config) : DiscourseService {
+@KoinApiExtension
+internal class DiscourseServiceImpl : DiscourseService, KoinComponent {
 
-    init {
-        config.addOnConfigChangedListener {
-            config = it
-        }
-    }
+    private val config by inject<Config>()
 
     override fun getPostsWithCustomNoticeTypeInTopic(
             id: Int,

@@ -1,7 +1,6 @@
 package it.forgottenworld.echelon.manager
 
 import it.forgottenworld.echelon.config.Config
-import it.forgottenworld.echelon.discourse.CodeMessageSender
 import it.forgottenworld.echelon.gui.TosPrompt
 import it.forgottenworld.echelon.utils.getRandomString
 import it.forgottenworld.echelon.utils.hasAcceptedTos
@@ -10,19 +9,22 @@ import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
+import org.koin.core.component.KoinApiExtension
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import java.time.Duration
 import java.time.LocalDateTime
 import java.util.*
 
-internal class ForumActivationManager(
-    private var config: Config,
-    private val codeMessageSender: CodeMessageSender
-) {
+@KoinApiExtension
+internal class ForumActivationManager : KoinComponent {
+
+    private val config by inject<Config>()
+    private val tosPrompt by inject<TosPrompt>()
 
     init {
         config.addOnConfigChangedListener {
             removeExpiredActivationData()
-            config = it
         }
     }
 
@@ -72,11 +74,7 @@ internal class ForumActivationManager(
                 )
             )
 
-            TosPrompt(
-                config,
-                codeMessageSender,
-                this@ForumActivationManager
-            ).startConversationForPlayer(player)
+            tosPrompt.startConversationForPlayer(player)
         }
     }
 }

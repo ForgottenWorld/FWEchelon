@@ -10,13 +10,16 @@ import net.md_5.bungee.api.chat.ClickEvent
 import org.bukkit.conversations.*
 import org.bukkit.entity.Player
 import org.bukkit.potion.PotionEffectType
+import org.koin.core.component.KoinApiExtension
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
+@KoinApiExtension
+internal class TosPrompt: ConversationAbandonedListener, KoinComponent {
 
-internal class TosPrompt(
-    private val config: Config,
-    private val codeMessageSender: CodeMessageSender,
-    private val forumActivationManager: ForumActivationManager
-) : ConversationAbandonedListener {
+    private val config by inject<Config>()
+    private val codeMessageSender by inject<CodeMessageSender>()
+    private val forumActivationManager by inject<ForumActivationManager>()
 
     override fun conversationAbandoned(p0: ConversationAbandonedEvent) =
         if (p0.gracefulExit())
@@ -27,16 +30,12 @@ internal class TosPrompt(
                 .sendRawMessage("${ChatColor.RED}${Strings.YOU_MUST_ACCEPT_TOS_IOT_ACCESS}")
 
     fun startConversationForPlayer(player: Player) = ConversationFactory(echelon)
-        .withFirstPrompt(TOSConfirmationPrompt(config, codeMessageSender, forumActivationManager))
+        .withFirstPrompt(TOSConfirmationPrompt())
         .withModality(true)
         .thatExcludesNonPlayersWithMessage("Only players can run this conversation")
         .addConversationAbandonedListener(this).buildConversation(player).begin()
 
-    private class TOSConfirmationPrompt(
-        private val config: Config,
-        private val codeMessageSender: CodeMessageSender,
-        private val forumActivationManager: ForumActivationManager
-    ) : FixedSetPrompt() {
+    private inner class TOSConfirmationPrompt : FixedSetPrompt() {
 
         override fun getPromptText(context: ConversationContext): String {
             (context.forWhom as Player).spigot().sendMessage(*component {
@@ -65,17 +64,13 @@ internal class TosPrompt(
                 (context.forWhom as Player)
                     .kickPlayer(Strings.YOU_MUST_ACCEPT_TOS_IOT_ACCESS)
                 Prompt.END_OF_CONVERSATION
-            } else ForumUsernamePrompt(config, codeMessageSender, forumActivationManager)
+            } else ForumUsernamePrompt()
 
         override fun getFailedValidationText(context: ConversationContext, invalidInput: String) =
             Strings.POSSIBLE_ANSWERS_ARE_YES_OR_NO
     }
 
-    private class ForumUsernamePrompt(
-        private val config: Config,
-        private val codeMessageSender: CodeMessageSender,
-        private val forumActivationManager: ForumActivationManager
-    ) : StringPrompt() {
+    private inner class ForumUsernamePrompt : StringPrompt() {
 
         override fun getPromptText(context: ConversationContext): String {
             (context.forWhom as? Player)?.spigot()?.sendMessage(*component {
@@ -92,16 +87,12 @@ internal class TosPrompt(
             input ?: return this
             val key = forumActivationManager.addActivationDataForPlayer((context.forWhom as Player).uniqueId)
             codeMessageSender.sendMessage(key, input.trim())
-            return ForumCodePrompt(config, codeMessageSender, forumActivationManager)
+            return ForumCodePrompt()
         }
 
     }
 
-    private class ForumCodePrompt(
-        private val config: Config,
-        private val codeMessageSender: CodeMessageSender,
-        private val forumActivationManager: ForumActivationManager
-    ) : StringPrompt() {
+    private inner class ForumCodePrompt : StringPrompt() {
 
         override fun getPromptText(context: ConversationContext) =
             "\n\n${Strings.CHECK_FORUM_NOTIFICATIONS}"
@@ -116,7 +107,7 @@ internal class TosPrompt(
                 return Prompt.END_OF_CONVERSATION
             }
             player.sendMessage("${ChatColor.RED}${Strings.WRONG_CODE}")
-            return ForumUsernamePrompt(config, codeMessageSender, forumActivationManager)
+            return ForumUsernamePrompt()
         }
     }
 }

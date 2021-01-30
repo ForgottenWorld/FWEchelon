@@ -1,12 +1,19 @@
 package it.forgottenworld.echelon.config
 
+import it.forgottenworld.echelon.FWEchelonPlugin
 import it.forgottenworld.echelon.config.Config.OnConfigChangedListener
 import org.bukkit.configuration.file.FileConfiguration
+import org.koin.core.component.KoinApiExtension
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import java.time.LocalTime
 
-internal class Config(private var config: FileConfiguration) {
+@KoinApiExtension
+internal class Config : KoinComponent {
 
-    val listeners = mutableListOf<OnConfigChangedListener>()
+    private val plugin by inject<FWEchelonPlugin>()
+    private var config = plugin.config
+    private val listeners = mutableListOf<OnConfigChangedListener>()
 
     val apiKey get() = config.getString("discourseApiKey") ?: "null"
     val forumActivationTimeout get() = config.getInt("forumActivationTimeout", DefaultValues.FORUM_ACTIVATION_TIMEOUT)

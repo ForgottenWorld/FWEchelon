@@ -1,0 +1,19 @@
+#dbHost: "localhost"
+#dbPort: 3306
+#dbDatabase: "fwechelon"
+#dbUsername: "fweUser"
+#dbPassword: "forgottenworld"
+
+discourseUrl: "https://forum.forgottenworld.it"
+discourseApiKey: :^)
+
+tosUrl: "https://wikinew.forgottenworld.it/main/Termini"
+
+forumActivationTimeout: 600
+
+enableTos: false
+
+minigameScheduledAt:
+  - "16:00"
+  - "18:00"
+  - "20:00"

@@ -1,4 +1,5 @@
 @file:Suppress("unused")
+@file:OptIn(KoinApiExtension::class)
 
 package it.forgottenworld.echelon.utils
 
@@ -9,15 +10,21 @@ import com.github.shynixn.mccoroutine.minecraftDispatcher
 import it.forgottenworld.echelon.FWEchelonPlugin
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import org.bukkit.plugin.java.JavaPlugin
+import org.koin.core.component.KoinApiExtension
+import org.koin.core.component.KoinComponent
 import kotlin.coroutines.CoroutineContext
 
-internal fun launch(f: suspend CoroutineScope.() -> Unit) = JavaPlugin.getPlugin(FWEchelonPlugin::class.java).launch(f)
+object MCCoroutineKtx : KoinComponent {
 
-internal fun launchAsync(f: suspend CoroutineScope.() -> Unit) = JavaPlugin.getPlugin(FWEchelonPlugin::class.java).launchAsync(f)
+    lateinit var plugin: FWEchelonPlugin
 
-internal val Dispatchers.minecraft: CoroutineContext
-    get() = JavaPlugin.getPlugin(FWEchelonPlugin::class.java).minecraftDispatcher
+    internal fun launch(f: suspend CoroutineScope.() -> Unit) = plugin.launch(f)
 
-internal val Dispatchers.async: CoroutineContext
-    get() = JavaPlugin.getPlugin(FWEchelonPlugin::class.java).asyncDispatcher
+    internal fun launchAsync(f: suspend CoroutineScope.() -> Unit) = plugin.launchAsync(f)
+
+    internal val Dispatchers.minecraft: CoroutineContext
+        get() = plugin.minecraftDispatcher
+
+    internal val Dispatchers.async: CoroutineContext
+        get() = plugin.asyncDispatcher
+}

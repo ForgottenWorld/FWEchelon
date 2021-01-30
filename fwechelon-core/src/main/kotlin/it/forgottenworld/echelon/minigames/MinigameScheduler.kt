@@ -1,13 +1,16 @@
 package it.forgottenworld.echelon.minigames
 
 import it.forgottenworld.echelon.config.Config
+import it.forgottenworld.echelon.utils.MCCoroutineKtx.launch
 import it.forgottenworld.echelon.utils.getPlayer
-import it.forgottenworld.echelon.utils.launch
 import it.forgottenworld.echelonapi.minigames.Minigame
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
+import org.koin.core.component.KoinApiExtension
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -15,7 +18,10 @@ import java.time.temporal.ChronoUnit
 import java.util.*
 import kotlin.random.Random
 
-internal class MinigameScheduler(config: Config) {
+@KoinApiExtension
+internal class MinigameScheduler: KoinComponent {
+
+    private val config by inject<Config>()
 
     init {
         config.addOnConfigChangedListener {

@@ -3,10 +3,14 @@ package it.forgottenworld.echelon.services
 import it.forgottenworld.echelon.minigames.MinigameScheduler
 import it.forgottenworld.echelonapi.minigames.Minigame
 import it.forgottenworld.echelonapi.services.MinigamesService
+import org.koin.core.component.KoinApiExtension
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-internal class MinigamesServiceImpl(
-    private val minigameScheduler: MinigameScheduler
-) : MinigamesService {
+@KoinApiExtension
+internal class MinigamesServiceImpl : MinigamesService, KoinComponent {
+
+    private val minigameScheduler by inject<MinigameScheduler>()
 
     override fun registerMinigameForRotation(minigame: Minigame) = minigameScheduler.addMinigameToRotation(minigame)
 

@@ -3,17 +3,17 @@ package it.forgottenworld.echelon.discourse
 import io.github.rybalkinsd.kohttp.dsl.httpPost
 import io.github.rybalkinsd.kohttp.ext.url
 import it.forgottenworld.echelon.config.Config
-import it.forgottenworld.echelon.utils.launchAsync
+import it.forgottenworld.echelon.utils.MCCoroutineKtx.launchAsync
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
+import org.koin.core.component.KoinApiExtension
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-internal class CodeMessageSender(private var config: Config) {
+@KoinApiExtension
+internal class CodeMessageSender: KoinComponent {
 
-    init {
-        config.addOnConfigChangedListener {
-            config = it
-        }
-    }
+    private val config by inject<Config>()
 
     fun sendMessage(discourseUsername: String, key: String) {
         val data = buildJsonObject {
