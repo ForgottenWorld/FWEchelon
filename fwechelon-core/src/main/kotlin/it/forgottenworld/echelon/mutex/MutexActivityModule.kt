@@ -6,5 +6,5 @@ import org.koin.dsl.module
 
 @OptIn(KoinApiExtension::class)
 val mutexActivityModule = module {
-    single<MutexActivityService> { MutexActivityServiceImpl() }
+    single<MutexActivityService>(createdAtStart = true) { MutexActivityServiceImpl() }
 }

@@ -38,8 +38,10 @@ internal abstract class TreeCommand : CommandExecutor, TabCompleter {
         sender: CommandSender,
         cmd: Command,
         label: String,
-        args: Array<out String>) =
-        if (sender is Player && cmd.name.equals(name, true))
-            walkArgs(cmdTree, args.toList())
-        else null
+        args: Array<out String>
+    ) = if (sender is Player && cmd.name.equals(name, true)) {
+        walkArgs(cmdTree, args.toList())
+    } else {
+        null
+    }
 }

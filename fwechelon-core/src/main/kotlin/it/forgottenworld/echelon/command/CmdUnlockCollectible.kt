@@ -1,7 +1,7 @@
 package it.forgottenworld.echelon.command
 
 import it.forgottenworld.echelon.FWEchelonPlugin
-import it.forgottenworld.echelon.command.api.CommandFunction
+import it.forgottenworld.echelon.command.api.CommandHandler
 import it.forgottenworld.echelon.config.Strings
 import net.md_5.bungee.api.ChatColor
 import org.bukkit.Bukkit
@@ -13,7 +13,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 @KoinApiExtension
-class CmdUnlockCollectible : CommandFunction<BlockCommandSender>, KoinComponent {
+class CmdUnlockCollectible : CommandHandler<BlockCommandSender>, KoinComponent {
 
     private val plugin by inject<FWEchelonPlugin>()
 

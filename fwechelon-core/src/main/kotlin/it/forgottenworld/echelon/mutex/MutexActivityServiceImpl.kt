@@ -1,9 +1,11 @@
 package it.forgottenworld.echelon.mutex
 
 import it.forgottenworld.echelon.FWEchelonPlugin
+import it.forgottenworld.echelon.utils.pluginlifecycle.addOnPluginEnabledListener
 import it.forgottenworld.echelon.utils.register
 import it.forgottenworld.echelonapi.mutexactivity.MutexActivityListener
 import it.forgottenworld.echelonapi.services.MutexActivityService
+import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -22,8 +24,11 @@ internal class MutexActivityServiceImpl : MutexActivityService, KoinComponent {
     private val playerMutexActivities = mutableMapOf<UUID, String>()
     val playersToRemoveFromMutexActivityOnDisconnect = mutableSetOf<UUID>()
 
-    fun registerListeners() {
-        PlayerQuitListener().register(plugin)
+    init {
+        plugin.addOnPluginEnabledListener {
+            PlayerQuitListener().register(plugin)
+            Bukkit.getLogger().info("Registered events for MutexActivityServiceImpl")
+        }
     }
 
     override fun isPlayerInMutexActivity(player: Player) = playerMutexActivities.containsKey(player.uniqueId)

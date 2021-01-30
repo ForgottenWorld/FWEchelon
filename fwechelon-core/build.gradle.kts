@@ -29,7 +29,6 @@ tasks.withType<ShadowJar> {
     relocate("org.koin", "it.forgottenworld.echelon.koin")
 }
 
-
 tasks.withType<KotlinCompile> {
     kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
 }

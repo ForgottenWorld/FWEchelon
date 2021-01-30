@@ -3,7 +3,9 @@ package it.forgottenworld.echelon.discourse
 import it.forgottenworld.echelon.FWEchelonPlugin
 import it.forgottenworld.echelon.config.Config
 import it.forgottenworld.echelon.utils.getRandomString
+import it.forgottenworld.echelon.utils.pluginlifecycle.addOnPluginEnabledListener
 import it.forgottenworld.echelon.utils.register
+import org.bukkit.Bukkit
 import org.bukkit.NamespacedKey
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -31,10 +33,10 @@ internal class ForumActivationManager : KoinComponent {
         config.addOnConfigChangedListener {
             removeExpiredActivationData()
         }
-    }
-
-    fun registerListeners() {
-        PlayerJoinListener().register(plugin)
+        plugin.addOnPluginEnabledListener {
+            PlayerJoinListener().register(plugin)
+            Bukkit.getLogger().info("Registered events for ForumActivationManager")
+        }
     }
 
     internal var Player.hasAcceptedTos

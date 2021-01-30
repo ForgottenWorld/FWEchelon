@@ -2,7 +2,6 @@ package it.forgottenworld.echelon.config
 
 import it.forgottenworld.echelon.FWEchelonPlugin
 import it.forgottenworld.echelon.config.Config.OnConfigChangedListener
-import org.bukkit.configuration.file.FileConfiguration
 import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -26,8 +25,9 @@ internal class Config : KoinComponent {
             LocalTime.of(split[0].toInt(), split[1].toInt())
         }.sorted()
 
-    fun updateConfig(config: FileConfiguration) {
-        this.config = config
+    fun reloadConfig() {
+        plugin.reloadConfig()
+        this.config = plugin.config
         for (l in listeners) l.onConfigChanged(this)
     }
 

@@ -4,8 +4,8 @@ import it.forgottenworld.echelon.FWEchelonPlugin
 import it.forgottenworld.echelon.config.Config
 import it.forgottenworld.echelon.config.Strings
 import it.forgottenworld.echelon.utils.append
+import it.forgottenworld.echelon.utils.chatComponent
 import it.forgottenworld.echelon.utils.clickEvent
-import it.forgottenworld.echelon.utils.component
 import net.md_5.bungee.api.ChatColor
 import net.md_5.bungee.api.chat.ClickEvent
 import org.bukkit.conversations.*
@@ -40,19 +40,14 @@ internal class TosPrompt : ConversationAbandonedListener, KoinComponent {
     private inner class TOSConfirmationPrompt : FixedSetPrompt() {
 
         override fun getPromptText(context: ConversationContext): String {
-            (context.forWhom as Player).spigot().sendMessage(*component {
+            (context.forWhom as Player).spigot().sendMessage(*chatComponent {
                 append("§a${Strings.WELCOME}/a!\n\n§f${Strings.TO_ACCESS_YOU_MUST} ")
-
                 append(Strings.TOS, ChatColor.AQUA)
                 clickEvent(ClickEvent.Action.OPEN_URL, config.tosUrl)
-
                 append("\n\n\n")
-
                 append("§f[ §a${Strings.ACCEPT} §f]")
                 clickEvent(ClickEvent.Action.RUN_COMMAND, "yes")
-
                 append("    ")
-
                 append("§f[ §c${Strings.DECLINE} §f]")
                 clickEvent(ClickEvent.Action.RUN_COMMAND, "no")
             })
@@ -75,7 +70,7 @@ internal class TosPrompt : ConversationAbandonedListener, KoinComponent {
     private inner class ForumUsernamePrompt : StringPrompt() {
 
         override fun getPromptText(context: ConversationContext): String {
-            (context.forWhom as? Player)?.spigot()?.sendMessage(*component {
+            (context.forWhom as? Player)?.spigot()?.sendMessage(*chatComponent {
                 append("\n\n${Strings.FORUM_USERNAME_REQUEST_1}")
                 append(Strings.FORUM_USERNAME_REQUEST_2, ChatColor.GOLD)
                 clickEvent(ClickEvent.Action.OPEN_URL, config.discourseUrl)

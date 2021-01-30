@@ -19,4 +19,8 @@ internal object Strings {
     const val ITEM_UNLOCKED = "Hai sbloccato %s"
     const val YOU_CANT_UNLOCK_THIS_YET = "Non puoi ancora sbloccare %s"
     const val NEW_EVENT_ABOUT_TO_START = "Sta per iniziare un nuovo evento: %s"
+    const val CLICK_HERE_TO_JOIN_EVENT = " Clicca qui per unirti all'evento"
+    const val EVENT_JOINED = "Ora sei nella lobby per l'evento."
+    const val CLICK_HERE_TO_LEAVE_EVENT = " Clicca qui per lasciare l'evento"
+    const val EVENT_IS_FULL = "Questo evento non ha posti disponibili al momento"
 }

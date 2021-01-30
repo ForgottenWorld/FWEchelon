@@ -6,8 +6,8 @@ import org.koin.dsl.module
 
 @OptIn(KoinApiExtension::class)
 val discourseModule = module {
-    single { ForumActivationManager() }
+    single(createdAtStart = true) { ForumActivationManager() }
     factory { TosPrompt() }
     single { CodeMessageSender() }
-    single<DiscourseService> { DiscourseServiceImpl() }
+    single<DiscourseService>(createdAtStart = true) { DiscourseServiceImpl() }
 }

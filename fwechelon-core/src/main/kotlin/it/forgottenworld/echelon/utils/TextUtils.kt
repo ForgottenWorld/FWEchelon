@@ -9,10 +9,9 @@ import net.md_5.bungee.api.chat.hover.content.Content
 
 private val STRING_CHARACTERS = ('0'..'9') + ('a'..'z') + ('A'..'Z')
 
-internal fun getRandomString(length: Int) =
-    (1..length).map { STRING_CHARACTERS.random() }.joinToString("")
+internal fun getRandomString(length: Int) = CharArray(length) { STRING_CHARACTERS.random() }.concatToString()
 
-internal inline fun component(build: ComponentBuilder.() -> Unit): Array<BaseComponent> = ComponentBuilder().apply { build() }.create()
+internal inline fun chatComponent(build: ComponentBuilder.() -> Unit): Array<BaseComponent> = ComponentBuilder().apply { build() }.create()
 
 internal fun ComponentBuilder.clickEvent(action: ClickEvent.Action, value: String): ComponentBuilder = event(ClickEvent(action, value))
 

@@ -10,7 +10,7 @@ import org.koin.dsl.module
 @OptIn(KoinApiExtension::class)
 val minigamesModule = module {
     single { MinigameScheduler() }
-    single<MinigameService> { MinigameServiceImpl() }
+    single<MinigameService>(createdAtStart = true) { MinigameServiceImpl() }
     factory { MinigameAnnouncer() }
     factory { CmdJoin() }
     factory { CmdLeave() }

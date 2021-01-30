@@ -27,7 +27,7 @@ internal class MinigameScheduler : KoinComponent {
     init {
         config.addOnConfigChangedListener {
             scheduledTimes = it.minigameScheduledAt
-            scheduleNext()
+            scheduleNextMinigame()
         }
     }
 
@@ -58,7 +58,7 @@ internal class MinigameScheduler : KoinComponent {
         minigamesInRotation[minigame.id] = minigame
         for (key in selectionWeights.keys) selectionWeights[key] = BASE_WEIGHT
         selectionWeights[minigame.id] = BASE_WEIGHT
-        scheduleNext()
+        scheduleNextMinigame()
         return true
     }
 
@@ -99,7 +99,7 @@ internal class MinigameScheduler : KoinComponent {
     fun onMinigameFinished(minigame: Minigame): Boolean {
         if (ongoingMinigame?.id != minigame.id) return false
         ongoingMinigame = null
-        scheduleNext()
+        scheduleNextMinigame()
         return true
     }
 
@@ -108,7 +108,7 @@ internal class MinigameScheduler : KoinComponent {
         pendingLobbyMinigame = minigame
     }
 
-    private fun scheduleNext() {
+    private fun scheduleNextMinigame() {
         schedulingJob?.cancel()
         schedulingJob = launch {
             delay(millisUntilNextEvent)
@@ -118,21 +118,21 @@ internal class MinigameScheduler : KoinComponent {
     }
 
     private fun pickMinigameForRotation(): Minigame {
-        val hay = selectionWeights.values.sum()
         val candidates = selectionWeights.entries.toList()
-        val rng = Random.nextInt(0, hay)
+        val rng = Random.nextInt(0, candidates.sumBy { it.value })
         var acc = 0
         var res: Minigame? = null
         for ((k, v) in candidates) {
-            acc += v
-            if (rng < acc) {
-                res = minigamesInRotation[k]!!
-                break
+            selectionWeights[k] = v + 1
+            if (res == null) {
+                acc += v
+                if (rng < acc) {
+                    res = minigamesInRotation[k]!!
+                    selectionWeights[k] = BASE_WEIGHT
+                }
             }
         }
-        for (key in selectionWeights.keys) selectionWeights[key] = selectionWeights[key]!! + 1
-        selectionWeights[res!!.id] = BASE_WEIGHT
-        return res
+        return res!!
     }
 
     companion object {
