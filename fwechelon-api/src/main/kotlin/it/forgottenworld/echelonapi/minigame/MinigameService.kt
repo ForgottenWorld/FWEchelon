@@ -1,6 +1,4 @@
-package it.forgottenworld.echelonapi.services
-
-import it.forgottenworld.echelonapi.minigames.Minigame
+package it.forgottenworld.echelonapi.minigame
 
 interface MinigameService {
 

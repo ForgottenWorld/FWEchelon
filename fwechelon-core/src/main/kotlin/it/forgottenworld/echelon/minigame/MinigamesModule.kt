@@ -1,9 +1,9 @@
-package it.forgottenworld.echelon.minigames
+package it.forgottenworld.echelon.minigame
 
-import it.forgottenworld.echelon.minigames.command.CmdJoin
-import it.forgottenworld.echelon.minigames.command.CmdLeave
-import it.forgottenworld.echelon.minigames.command.MinigameCommand
-import it.forgottenworld.echelonapi.services.MinigameService
+import it.forgottenworld.echelon.minigame.command.CmdJoin
+import it.forgottenworld.echelon.minigame.command.CmdLeave
+import it.forgottenworld.echelon.minigame.command.MinigameCommand
+import it.forgottenworld.echelonapi.minigame.MinigameService
 import org.koin.core.component.KoinApiExtension
 import org.koin.dsl.module
 

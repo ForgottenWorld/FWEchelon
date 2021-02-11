@@ -1,10 +1,10 @@
-package it.forgottenworld.echelon.mutex
+package it.forgottenworld.echelon.mutexactivity
 
 import it.forgottenworld.echelon.FWEchelonPlugin
 import it.forgottenworld.echelon.utils.pluginlifecycle.addOnPluginEnabledListener
 import it.forgottenworld.echelon.utils.register
-import it.forgottenworld.echelonapi.mutexactivity.MutexActivityListener
-import it.forgottenworld.echelonapi.services.MutexActivityService
+import it.forgottenworld.echelonapi.mutexactivity.MutexActivity
+import it.forgottenworld.echelonapi.mutexactivity.MutexActivityService
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -20,7 +20,7 @@ internal class MutexActivityServiceImpl : MutexActivityService, KoinComponent {
 
     private val plugin by inject<FWEchelonPlugin>()
 
-    private val mutexActivities = mutableMapOf<String, MutexActivityListener>()
+    private val mutexActivities = mutableMapOf<String, MutexActivity>()
     private val playerMutexActivities = mutableMapOf<UUID, String>()
     val playersToRemoveFromMutexActivityOnDisconnect = mutableSetOf<UUID>()
 
@@ -69,9 +69,9 @@ internal class MutexActivityServiceImpl : MutexActivityService, KoinComponent {
         playerMutexActivities.clear()
     }
 
-    override fun registerMutexActivity(name: String, listener: MutexActivityListener): Boolean {
-        if (mutexActivities.containsKey(name)) return false
-        mutexActivities[name] = listener
+    override fun registerMutexActivity(activity: MutexActivity): Boolean {
+        if (mutexActivities.containsKey(activity.id)) return false
+        mutexActivities[activity.id] = activity
         return true
     }
 

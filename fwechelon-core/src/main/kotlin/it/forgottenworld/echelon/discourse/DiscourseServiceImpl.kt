@@ -8,7 +8,7 @@ import it.forgottenworld.echelon.config.Config
 import it.forgottenworld.echelon.utils.asyncDispatcher
 import it.forgottenworld.echelon.utils.launch
 import it.forgottenworld.echelonapi.discourse.DiscoursePost
-import it.forgottenworld.echelonapi.services.DiscourseService
+import it.forgottenworld.echelonapi.discourse.DiscourseService
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json

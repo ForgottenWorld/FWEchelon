@@ -1,7 +1,7 @@
-package it.forgottenworld.echelon.minigames.command
+package it.forgottenworld.echelon.minigame.command
 
 import it.forgottenworld.echelon.command.api.CommandHandler
-import it.forgottenworld.echelon.minigames.MinigameScheduler
+import it.forgottenworld.echelon.minigame.MinigameScheduler
 import org.bukkit.entity.Player
 import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.KoinComponent

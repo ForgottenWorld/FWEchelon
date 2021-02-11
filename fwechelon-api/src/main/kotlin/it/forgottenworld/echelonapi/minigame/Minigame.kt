@@ -1,4 +1,4 @@
-package it.forgottenworld.echelonapi.minigames
+package it.forgottenworld.echelonapi.minigame
 
 import org.bukkit.entity.Player
 
@@ -33,7 +33,7 @@ interface Minigame {
      * Called whenever the minigame is picked in the rotation. The minigame
      * shall then prepare for the rotation being announced. Once the plugin
      * has made sure the event can start, it has to call
-     * MinigamesService#notifyReadyForAnnouncement
+     * [it.forgottenworld.echelonapi.services.MinigameService.notifyReadyForAnnouncement]
      * */
     fun onPickedForRotation()
 
@@ -72,7 +72,7 @@ interface Minigame {
 
     /**
      * Called at the start of the event. When the event is finished, the
-     * minigame plugin shall call MinigamesService#onFinish
+     * minigame plugin shall call [it.forgottenworld.echelonapi.services.MinigameService.onFinish]
      *
      * @param players the players in the lobby
      * */

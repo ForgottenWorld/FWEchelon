@@ -1,20 +1,18 @@
-package it.forgottenworld.echelonapi;
+package it.forgottenworld.echelonapi
 
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
-import org.jetbrains.annotations.Nullable;
+import org.bukkit.Bukkit
 
-public interface FWEchelon {
+object FWEchelon {
 
     /**
-     * Convenience method for retrieving the FWEchelonPlugin's API
+     * Convenience method for retrieving FWEchelonPlugin's API
      *
-     * @return the plugin's API or null if the plugin is not loaded
+     * @return the plugin's API
+     * @throws [IllegalStateException] if the plugin is not loaded
      */
-    @Nullable
-    static FWEchelonApi getApi() {
-        Plugin plugin = Bukkit.getPluginManager().getPlugin("FWEchelon");
-        return plugin instanceof FWEchelonApi ? (FWEchelonApi) plugin : null;
-    }
-
+    @JvmStatic
+    val api get() = Bukkit
+        .getPluginManager()
+        .getPlugin("FWEchelon") as? FWEchelonApi
+        ?: error("FWEchelon not loaded")
 }

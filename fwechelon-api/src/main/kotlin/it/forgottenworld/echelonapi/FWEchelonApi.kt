@@ -1,8 +1,8 @@
 package it.forgottenworld.echelonapi
 
-import it.forgottenworld.echelonapi.services.DiscourseService
-import it.forgottenworld.echelonapi.services.MinigameService
-import it.forgottenworld.echelonapi.services.MutexActivityService
+import it.forgottenworld.echelonapi.discourse.DiscourseService
+import it.forgottenworld.echelonapi.minigame.MinigameService
+import it.forgottenworld.echelonapi.mutexactivity.MutexActivityService
 
 interface FWEchelonApi {
     val discourseService: DiscourseService

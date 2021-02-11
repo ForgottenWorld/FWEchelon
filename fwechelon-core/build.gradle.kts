@@ -18,6 +18,14 @@ dependencies {
     compileOnly(Libs.koHttp)
     implementation(Libs.koin)
     implementation(project(":fwechelon-api"))
+
+    testImplementation(Libs.spigot)
+    testImplementation(Libs.skedule)
+    testImplementation(Libs.coroutines)
+    testImplementation(Libs.serialization)
+    testImplementation(Libs.koHttp)
+    testImplementation(Libs.mockBukkit)
+    testImplementation(Libs.junit)
 }
 
 tasks.withType<ShadowJar> {

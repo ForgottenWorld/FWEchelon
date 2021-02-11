@@ -1,8 +1,8 @@
-package it.forgottenworld.echelon.minigames.command
+package it.forgottenworld.echelon.minigame.command
 
 import it.forgottenworld.echelon.command.api.CommandHandler
 import it.forgottenworld.echelon.config.Strings
-import it.forgottenworld.echelon.minigames.MinigameScheduler
+import it.forgottenworld.echelon.minigame.MinigameScheduler
 import it.forgottenworld.echelon.utils.append
 import it.forgottenworld.echelon.utils.chatComponent
 import it.forgottenworld.echelon.utils.clickEvent

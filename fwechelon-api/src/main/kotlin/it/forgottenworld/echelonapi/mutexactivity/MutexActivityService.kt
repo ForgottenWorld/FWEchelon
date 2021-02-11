@@ -1,6 +1,5 @@
-package it.forgottenworld.echelonapi.services
+package it.forgottenworld.echelonapi.mutexactivity
 
-import it.forgottenworld.echelonapi.mutexactivity.MutexActivityListener
 import org.bukkit.entity.Player
 
 interface MutexActivityService {
@@ -74,5 +73,5 @@ interface MutexActivityService {
      * @param listener the listener for supervisor events
      * @return true on success, false if there already is a mutually exclusive activity with the same name
      * */
-    fun registerMutexActivity(name: String, listener: MutexActivityListener): Boolean
+    fun registerMutexActivity(activity: MutexActivity): Boolean
 }

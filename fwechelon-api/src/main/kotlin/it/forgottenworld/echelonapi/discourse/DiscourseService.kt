@@ -1,6 +1,5 @@
-package it.forgottenworld.echelonapi.services
+package it.forgottenworld.echelonapi.discourse
 
-import it.forgottenworld.echelonapi.discourse.DiscoursePost
 import java.util.function.Consumer
 
 interface DiscourseService {

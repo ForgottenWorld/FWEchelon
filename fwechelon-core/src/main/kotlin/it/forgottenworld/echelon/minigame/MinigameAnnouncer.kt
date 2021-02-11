@@ -1,10 +1,10 @@
-package it.forgottenworld.echelon.minigames
+package it.forgottenworld.echelon.minigame
 
 import it.forgottenworld.echelon.config.Strings
 import it.forgottenworld.echelon.utils.append
 import it.forgottenworld.echelon.utils.chatComponent
 import it.forgottenworld.echelon.utils.clickEvent
-import it.forgottenworld.echelonapi.minigames.Minigame
+import it.forgottenworld.echelonapi.minigame.Minigame
 import net.md_5.bungee.api.ChatColor
 import net.md_5.bungee.api.chat.ClickEvent
 import org.bukkit.entity.Player

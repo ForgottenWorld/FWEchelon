@@ -6,5 +6,6 @@ object Libs {
     const val koHttp = "io.github.rybalkinsd:kohttp:0.12.0"
     const val koin = "org.koin:koin-core:2.2.2"
     const val skedule = "com.github.BrunoSilvaFreire:Skedule:0.1.3"
-
+    const val mockBukkit = "com.github.seeseemelk:MockBukkit-v1.16:0.5.0"
+    const val junit = "junit:junit:4.12"
 }

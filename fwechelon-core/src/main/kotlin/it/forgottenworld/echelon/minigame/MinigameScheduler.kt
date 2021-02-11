@@ -1,9 +1,9 @@
-package it.forgottenworld.echelon.minigames
+package it.forgottenworld.echelon.minigame
 
 import it.forgottenworld.echelon.config.Config
 import it.forgottenworld.echelon.utils.getPlayer
 import it.forgottenworld.echelon.utils.launch
-import it.forgottenworld.echelonapi.minigames.Minigame
+import it.forgottenworld.echelonapi.minigame.Minigame
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import org.bukkit.Bukkit
@@ -45,12 +45,12 @@ internal class MinigameScheduler : KoinComponent {
         get() {
             if (scheduledTimes.isEmpty()) return -1
             var isTomorrow = false
-            val time = scheduledTimes.find { it.isAfter(LocalTime.now()) }
+            val now = LocalTime.now()
+            val time = scheduledTimes.find { it.isAfter(now) }
                 ?: scheduledTimes.first().also { isTomorrow = true }
             var date = LocalDate.now()
             if (isTomorrow) date = date.plusDays(1)
-            val dateTime = date.atTime(time)
-            return LocalDateTime.now().until(dateTime, ChronoUnit.MILLIS)
+            return LocalDateTime.now().until(date.atTime(time), ChronoUnit.MILLIS)
         }
 
     fun addMinigameToRotation(minigame: Minigame): Boolean {
@@ -64,10 +64,10 @@ internal class MinigameScheduler : KoinComponent {
 
     fun onMinigameReadyForAnnouncement(minigame: Minigame): Boolean {
         if (pendingLobbyMinigame?.id != minigame.id) return false
-        minigameAnnouncer.announceMinigame(minigame, Bukkit.getServer().onlinePlayers)
-        minigame.onAnnounced()
         pendingLobbyMinigame = null
         pendingStartMinigame = minigame
+        minigame.onAnnounced()
+        minigameAnnouncer.announceMinigame(minigame, Bukkit.getServer().onlinePlayers)
         return true
     }
 
@@ -104,8 +104,8 @@ internal class MinigameScheduler : KoinComponent {
     }
 
     private fun notifyChosenForAnnouncement(minigame: Minigame) {
-        minigame.onPickedForRotation()
         pendingLobbyMinigame = minigame
+        minigame.onPickedForRotation()
     }
 
     private fun scheduleNextMinigame() {

@@ -2,7 +2,9 @@ package it.forgottenworld.echelonapi.mutexactivity
 
 import org.bukkit.entity.Player
 
-interface MutexActivityListener {
+interface MutexActivity {
+
+    val id: String
 
     /**
      * Gets called whenever a player is forcibly removed from the activity

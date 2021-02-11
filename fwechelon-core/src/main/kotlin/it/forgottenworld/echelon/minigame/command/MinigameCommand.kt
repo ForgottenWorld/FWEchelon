@@ -1,4 +1,4 @@
-package it.forgottenworld.echelon.minigames.command
+package it.forgottenworld.echelon.minigame.command
 
 import it.forgottenworld.echelon.command.api.BranchingCommand
 import it.forgottenworld.echelon.command.api.PlayerCommand
