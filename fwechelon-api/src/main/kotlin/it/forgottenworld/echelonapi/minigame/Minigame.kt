@@ -33,7 +33,7 @@ interface Minigame {
      * Called whenever the minigame is picked in the rotation. The minigame
      * shall then prepare for the rotation being announced. Once the plugin
      * has made sure the event can start, it has to call
-     * [it.forgottenworld.echelonapi.services.MinigameService.notifyReadyForAnnouncement]
+     * [MinigameService.notifyReadyForAnnouncement]
      * */
     fun onPickedForRotation()
 
@@ -72,14 +72,14 @@ interface Minigame {
 
     /**
      * Called at the start of the event. When the event is finished, the
-     * minigame plugin shall call [it.forgottenworld.echelonapi.services.MinigameService.onFinish]
+     * minigame plugin shall call [MinigameService.onFinish]
      *
      * @param players the players in the lobby
      * */
     fun onStart(players: List<Player>)
 
     /**
-     * Can be called at any time. Notifies the plugin Echelon considers
+     * Can be called at any time. Notifies the plugin that Echelon considers
      * the event as abruptly stopped. The plugin shall handle cleanup
      *
      * @param players the players who were in the lobby at the time

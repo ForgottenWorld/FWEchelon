@@ -2,12 +2,10 @@ package it.forgottenworld.echelon.config
 
 import it.forgottenworld.echelon.FWEchelonPlugin
 import it.forgottenworld.echelon.config.Config.OnConfigChangedListener
-import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.time.LocalTime
 
-@KoinApiExtension
 internal class Config : KoinComponent {
 
     private val plugin by inject<FWEchelonPlugin>()

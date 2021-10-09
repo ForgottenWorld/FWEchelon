@@ -69,8 +69,7 @@ interface MutexActivityService {
     /**
      * Makes Echelon aware of a new mutually exclusive activity players can join
      *
-     * @param name the name and unique identifier of the mutually exclusive activity
-     * @param listener the listener for supervisor events
+     * @param activity the listener for supervisor events
      * @return true on success, false if there already is a mutually exclusive activity with the same name
      * */
     fun registerMutexActivity(activity: MutexActivity): Boolean

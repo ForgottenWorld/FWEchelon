@@ -8,11 +8,9 @@ import org.bukkit.Bukkit
 import org.bukkit.NamespacedKey
 import org.bukkit.command.BlockCommandSender
 import org.bukkit.persistence.PersistentDataType
-import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-@KoinApiExtension
 class CmdUnlockCollectible : CommandHandler<BlockCommandSender>, KoinComponent {
 
     private val plugin by inject<FWEchelonPlugin>()

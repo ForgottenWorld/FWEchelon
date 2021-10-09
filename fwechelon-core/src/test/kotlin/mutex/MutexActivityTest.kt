@@ -1,5 +1,3 @@
-@file:OptIn(KoinApiExtension::class)
-
 package mutex
 
 import BaseTest
@@ -8,7 +6,6 @@ import org.bukkit.entity.Player
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import org.koin.core.component.KoinApiExtension
 
 open class MutexActivityTest : BaseTest() {
 

@@ -29,5 +29,13 @@ internal data class DiscoursePostImpl(val map: JsonObject) : DiscoursePost {
 
     override val topicId = map["topic_id"]?.jsonPrimitive?.int ?: -1
 
-    override fun toString() = "id: $id\nname: $name\nusername: $username\ncreatedAt: $createdAt\ncontent: $content\ntopicId: $topicId"
+    override fun toString() =
+        """
+            id: $id
+            name: $name
+            username: $username
+            createdAt: $createdAt
+            content: $content
+            topicId: $topicId
+        """.trimIndent()
 }

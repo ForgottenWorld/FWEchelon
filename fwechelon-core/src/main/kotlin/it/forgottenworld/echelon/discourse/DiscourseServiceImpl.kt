@@ -15,12 +15,10 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
-import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.util.function.Consumer
 
-@KoinApiExtension
 internal class DiscourseServiceImpl : DiscourseService, KoinComponent {
 
     private val config by inject<Config>()

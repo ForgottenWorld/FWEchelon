@@ -10,12 +10,10 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerQuitEvent
-import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.util.*
 
-@KoinApiExtension
 internal class MutexActivityServiceImpl : MutexActivityService, KoinComponent {
 
     private val plugin by inject<FWEchelonPlugin>()

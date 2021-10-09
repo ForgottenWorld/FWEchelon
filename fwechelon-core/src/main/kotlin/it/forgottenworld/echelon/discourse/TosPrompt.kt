@@ -11,11 +11,9 @@ import net.md_5.bungee.api.chat.ClickEvent
 import org.bukkit.conversations.*
 import org.bukkit.entity.Player
 import org.bukkit.potion.PotionEffectType
-import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-@KoinApiExtension
 internal class TosPrompt : ConversationAbandonedListener, KoinComponent {
 
     private val plugin by inject<FWEchelonPlugin>()

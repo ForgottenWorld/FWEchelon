@@ -8,7 +8,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
-import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.time.LocalDate
@@ -18,7 +17,6 @@ import java.time.temporal.ChronoUnit
 import java.util.*
 import kotlin.random.Random
 
-@KoinApiExtension
 internal class MinigameScheduler : KoinComponent {
 
     private val config by inject<Config>()
@@ -119,7 +117,7 @@ internal class MinigameScheduler : KoinComponent {
 
     private fun pickMinigameForRotation(): Minigame {
         val candidates = selectionWeights.entries.toList()
-        val rng = Random.nextInt(0, candidates.sumBy { it.value })
+        val rng = Random.nextInt(0, candidates.sumOf { it.value })
         var acc = 0
         var res: Minigame? = null
         for ((k, v) in candidates) {

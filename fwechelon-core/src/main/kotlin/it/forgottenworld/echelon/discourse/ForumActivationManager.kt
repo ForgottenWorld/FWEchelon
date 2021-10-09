@@ -14,14 +14,12 @@ import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.persistence.PersistentDataType
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
-import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.time.Duration
 import java.time.LocalDateTime
 import java.util.*
 
-@KoinApiExtension
 internal class ForumActivationManager : KoinComponent {
 
     private val plugin by inject<FWEchelonPlugin>()

@@ -17,7 +17,6 @@ import it.forgottenworld.echelonapi.mutexactivity.MutexActivityService
 import org.bukkit.plugin.PluginDescriptionFile
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.plugin.java.JavaPluginLoader
-import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 import org.koin.core.component.inject
@@ -27,7 +26,6 @@ import org.koin.dsl.module
 import java.io.File
 
 @Suppress("unused")
-@KoinApiExtension
 class FWEchelonPlugin : JavaPlugin, FWEchelonApi, KoinComponent, PluginLifecycleOwner {
     
     override val discourseService by inject<DiscourseService>()

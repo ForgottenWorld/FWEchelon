@@ -9,11 +9,10 @@ import it.forgottenworld.echelon.utils.clickEvent
 import net.md_5.bungee.api.ChatColor
 import net.md_5.bungee.api.chat.ClickEvent
 import org.bukkit.entity.Player
-import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-@KoinApiExtension
+
 class CmdJoin : CommandHandler<Player>, KoinComponent {
 
     private val minigameScheduler by inject<MinigameScheduler>()
